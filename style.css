@@ -1,0 +1,919 @@
+/* --- CSS VARIABLES & RESET --- */
+:root {
+    --primary-dark: #2A0A0A;
+    /* Deep Maroon from Logo Background */
+    --primary-light: #4A1C1C;
+    --gold: #C5A059;
+    /* Dome Gold */
+    --saffron: #FF9933;
+    /* Indian Flag Saffron */
+    --green: #138808;
+    /* Indian Flag Green */
+    --text-light: #F4F4F4;
+    --text-dark: #333333;
+    --transition: all 0.4s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+ 
+}
+
+
+section {
+    scroll-margin-top: 80px;
+
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--primary-dark);
+    color: var(--text-light);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+
+/* page loading */
+/* --- CUSTOM PAGE LOADER --- */
+.page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2A0A0A; /* Brand Dark Maroon */
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Class to hide the loader */
+.page-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Allows clicking through after it fades */
+}
+
+/* Container for the logo and ring */
+.loader-content {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* The Spinning Gold Ring */
+.spinner-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px solid transparent;
+    border-top-color: #C5A059; /* Brand Gold */
+    border-right-color: #C5A059;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* The Logo inside */
+.loader-logo {
+    width: 70px; /* Slightly smaller than ring */
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.loader-text {
+    margin-top: 20px;
+    color: #C5A059;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; transform: scale(0.95); }
+    50% { opacity: 1; transform: scale(1); }
+}
+
+
+
+
+
+
+
+
+/* --- NAVBAR --- */
+/* 1. Default Navbar State */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0; 
+    right: 0; /* critical for centering later */
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    z-index: 1000;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother animation */
+    background: transparent;
+    margin: 0 auto; /* Ensures it starts centered */
+}
+
+/* 2. Detached "Floating" State */
+nav.scrolled {
+    background: rgba(42, 10, 10, 0.784);
+    /* Adds a nice blur effect behind the glass */
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px);
+    
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    padding: 0.8rem 5%;
+    
+    /* DETACHING LOGIC */
+    top: 20px; 
+    width: 95%;
+    border-radius: 30px; 
+    border: 2px solid #C5A059;
+    /* CENTERING LOGIC */
+    margin-left: auto;
+    margin-right: auto;
+  
+}
+
+.logo-container {
+    height: 80px;
+    width: auto;
+}
+
+.logo-container img {
+    height: 100%;
+    border-radius: 50%;
+    /* Matches the circular logo */
+    border: 2px solid var(--gold);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-light);
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: var(--gold);
+    transition: var(--transition);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--gold);
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(42, 10, 10, 0.8)),
+        url('https://images.unsplash.com/photo-1555244162-803834f70033?q=80&w=2070&auto=format&fit=crop');
+    /* Placeholder Image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    /* Parallax effect */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.hero-content {
+    max-width: 800px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 1s forwards 0.5s;
+    background: rgba(0, 0, 0, 0.4); 
+    padding: 40px;
+    border: 1px solid rgba(197, 160, 89, 0.3); 
+    backdrop-filter: blur(5px);
+    border-radius: 20px ;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    font-style: italic;
+    color: #ddd;
+}
+
+.btn-gold {
+    padding: 12px 35px;
+    background: transparent;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 10px;
+}
+
+.btn-gold:hover {
+    background: var(--gold);
+    color: var(--primary-dark);
+}
+
+/* --- ABOUT SECTION --- */
+.section {
+    padding: 5rem 10%;
+}
+
+.about {
+    background-color: #fdfdfd;
+    color: var(--primary-dark);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4rem;
+}
+
+.about-text {
+    flex: 1;
+    min-width: 300px;
+}
+
+.about-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-dark);
+    border-bottom: 3px solid var(--gold);
+    display: inline-block;
+}
+
+.about-image {
+    flex: 1;
+    min-width: 300px;
+    position: relative;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 15px 15px 0px var(--gold);
+}
+
+/* --- EXPERIENCE / STATS --- */
+.experience {
+    background-color: #1a0505;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+
+.stat-box h3 {
+    font-size: 3.5rem;
+   
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+
+
+    background: linear-gradient(to right, #C5A059, #F4F4F4, #C5A059);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-box p {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+/* --- MENU HIGHLIGHTS --- */
+.menu-section {
+    background-color: var(--primary-dark);
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--gold);
+    margin: 10px auto 0;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.menu-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    padding: 2rem;
+    transition: var(--transition);
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+.menu-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--gold);
+}
+
+.menu-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--gold);
+}
+
+/* --- MENU IMAGE REPLACEMENTS --- */
+
+.menu-img-wrapper {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 1.5rem auto; /* Center and add space below */
+    position: relative;
+    border-radius: 50%; /* Makes it a circle */
+    padding: 4px; /* Space for the gold border */
+    border: 1px solid var(--gold); /* Thin outer border */
+}
+
+.menu-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image fills the circle without stretching */
+    border-radius: 50%;
+    transition: transform 0.4s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Hover Effect: Gentle Zoom */
+.menu-card:hover .menu-img-wrapper img {
+    transform: scale(1.1);
+}
+
+/* Adjust card padding to accommodate larger images */
+.menu-card {
+    background: rgba(255, 255, 255, 0.05); /* Slight glass effect */
+    padding: 2.5rem 1.5rem;
+    border: 1px solid rgba(197, 160, 89, 0.1); /* Subtle gold border */
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.menu-card:hover {
+    background: rgba(197, 160, 89, 0.1); /* Gold glow on hover */
+    transform: translateY(-5px);
+}
+
+
+
+
+
+
+
+
+/* --- FOOTER --- */
+footer {
+    background-color: #110202;
+    padding: 4rem 10% 2rem;
+    border-top: 1px solid rgba(197, 160, 89, 0.3);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-col h4 {
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+}
+
+.footer-col ul li {
+    margin-bottom: 0.8rem;
+    color: #aaa;
+    transition: var(--transition);
+}
+
+.footer-col ul li:hover {
+    color: var(--gold);
+    padding-left: 5px;
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* --- ANIMATION CLASSES --- */
+.hidden {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease-out;
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- MOBILE MEDIA QUERIES (Updated) --- */
+@media (max-width: 768px) {
+    
+    /* 1. Fix horizontal scrolling */
+    html, body {
+        overflow-x: hidden;
+    }
+
+    /* 2. Adjust Sections padding */
+    .section {
+        padding: 4rem 5%;
+    }
+
+    /* 3. Hero Text Size */
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    /* 4. Navbar Mobile View */
+    .nav-links {
+        position: fixed;
+        right: -20px;
+        height: 100vh;
+        top: 0;
+        background-color: var(--primary-dark);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 70%; /* Covers 70% of screen */
+        transform: translateX(100%);
+        transition: transform 0.4s ease-in-out;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+    .nav-links.nav-active {
+        transform: translateX(0%);
+    }
+
+    /* Ensure floating nav spans full width on mobile */
+    nav.scrolled {
+        width: 95%;
+        top: 10px;
+        padding: 0.8rem 1rem;
+    }
+
+    /* 5. Hamburger Button */
+    .hamburger {
+        display: block;
+        z-index: 1001; /* Above the menu */
+        font-size: 1.8rem;
+    }
+
+    /* 6. Stack the About Section */
+    .about {
+        flex-direction: column-reverse; /* Image on top, text below */
+        gap: 2rem;
+    }
+    
+    .about-image {
+        width: 100%;
+    }
+
+    /* 7. Footer Stacking */
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 2.5rem;
+    }
+    
+    .footer-col {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .footer-col p {
+        margin: 0 auto; /* Center the paragraph text */
+    }
+
+    /* Force button text to wrap on small screens */
+.btn-gold {
+    white-space: normal !important; 
+    word-wrap: break-word;          
+    text-align: center;             
+    max-width: 90%;                
+    margin: 0 auto;                
+    display: inline-block;    
+    padding: 12px 20px;             
+    height: auto;                  
+}
+.logo-container {
+    height: 30px;
+    width: auto;
+}
+}
+
+
+
+/* --- CLIENT LOGO SLIDER --- */
+.client-logos {
+    background: #f4f4f4; /* Light contrast against the dark sections */
+    padding: 2rem 0;
+    overflow: hidden;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.client-title {
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.logo-slider {
+    height: 60px;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    width: 90%;
+    display: flex;
+    align-items: center;
+}
+
+.logo-slider::before,
+.logo-slider::after {
+    background: linear-gradient(to right, #f4f4f4 0%, rgba(255, 255, 255, 0) 100%);
+    content: "";
+    height: 100%;
+    position: absolute;
+    width: 100px;
+    z-index: 2;
+}
+
+.logo-slider::after {
+    right: 0;
+    top: 0;
+    transform: rotateZ(180deg);
+}
+
+.logo-slider::before {
+    left: 0;
+    top: 0;
+}
+
+.logo-track {
+    display: flex;
+    width: calc(200px * 10); /* Width of slide * number of slides */
+    animation: scroll 20s linear infinite;
+}
+
+.slide {
+    height: 60px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+}
+
+.slide img {
+    max-width: 100%;
+    max-height: 100%;
+    filter: grayscale(100%); /* Makes logos black/white for corporate look */
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+.slide img:hover {
+    filter: grayscale(0%); /* Color on hover */
+    opacity: 1;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-200px * 5)); } /* Move by half the total width */
+}
+
+
+
+
+/* --- MEDIA / NEWSPAPER SECTION --- */
+.media-section {
+    padding: 6rem 10%;
+    background-color: rgb(26, 5, 5);
+    /* Dark Maroon Background */
+    text-align: center;
+    position: relative;
+    border-top: 2px solid var(--gold);
+}
+
+/* Header Styling */
+.section-header h2 {
+    font-size: 3rem;
+    color: var(--gold);
+    margin-bottom: 10px;
+}
+
+.section-header p {
+    color: #ccc;
+    font-family: 'Lato', sans-serif;
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+}
+
+.gold-separator {
+    width: 80px;
+    height: 3px;
+    background-color: var(--gold);
+    margin: 10px auto 20px;
+}
+
+/* Grid Layout */
+.media-grid {
+    display: grid;
+    /* Automatically fits as many columns as possible (min width 300px) */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    justify-items: center;
+}
+
+/* The Card */
+.media-card {
+    width: 100%;
+    max-width: 350px;
+    background: transparent;
+    transition: transform 0.4s ease;
+    cursor: pointer;
+}
+
+.media-card:hover {
+    transform: translateY(-10px);
+    /* Floats up on hover */
+}
+
+/* Image Container */
+.media-img-box {
+    width: 100%;
+    height: 450px;
+    /* Tall height for newspaper format */
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    /* Subtle Gold Border */
+    border-radius: 4px;
+    background-color: #fff;
+    /* White bg in case image doesn't load */
+}
+
+.media-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ensures it fills the box nicely */
+    object-position: top center;
+    /* Focuses on the headline */
+    transition: transform 0.6s ease;
+    filter: grayscale(20%);
+    /* Slight vintage feel */
+}
+
+.media-card:hover .media-img-box img {
+    transform: scale(1.05);
+    /* Gentle zoom */
+    filter: grayscale(0%);
+    /* Full color on hover */
+}
+
+/* Overlay Effect */
+.media-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(42, 10, 10, 0.7);
+    /* Dark tint */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.media-card:hover .media-overlay {
+    opacity: 1;
+}
+
+.view-btn {
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 10px 25px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    background: transparent;
+    transition: 0.3s;
+}
+
+.view-btn:hover {
+    background: var(--gold);
+    color: var(--primary-dark);
+}
+
+/* Text Caption Below */
+.media-caption {
+    margin-top: 20px;
+    text-align: left;
+    border-left: 3px solid var(--gold);
+    padding-left: 15px;
+}
+
+.media-caption h4 {
+    color: #fff;
+    font-size: 1.4rem;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 5px;
+}
+
+.media-date {
+    display: block;
+    color: var(--gold);
+    font-size: 0.9rem;
+    font-weight: 300;
+}
+
+
+/* --- MODAL / LIGHTBOX STYLES --- */
+.modal-overlay {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    z-index: 10000;
+    /* On top of everything */
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    /* Dark black background */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+}
+
+/* The Image Inside the Modal */
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 85vh;
+    /* Keeps image within screen height */
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+    animation: zoomIn 0.3s;
+}
+
+/* The Close Button (x) */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: var(--gold);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Zoom Animation */
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

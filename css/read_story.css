@@ -1,0 +1,564 @@
+/* --- CORE VARIABLES --- */
+:root {
+    --primary-dark: #2A0A0A;
+    --primary-light: #4A1C1C;
+    --gold: #C5A059;
+    --text-light: #F4F4F4;
+    --text-dark: #333333;
+    --transition: all 0.5s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #f9f9f9;
+    color: var(--text-dark);
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Playfair Display', serif;
+}
+
+/* --- NAVBAR --- */
+nav {
+    background: var(--primary-dark);
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-logo {
+    color: var(--gold);
+    font-family: 'Playfair Display';
+    font-size: 1.5rem;
+    text-decoration: none;
+    border: 1px solid var(--gold);
+    padding: 5px 15px;
+    border-radius: 50px;
+}
+
+.back-link {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.back-link:hover {
+    color: var(--gold);
+}
+
+/* --- PAGE HEADER --- */
+.page-header {
+    height: 60vh;
+    background: linear-gradient(rgba(42, 10, 10, 0.85), rgba(42, 10, 10, 0.7)), url('https://images.unsplash.com/photo-1541535650810-10d26f5c2ab3?q=80&w=2076&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--gold);
+    margin-top: 60px;
+    /* Offset for fixed nav */
+}
+
+.page-header h1 {
+    font-size: 3.5rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+}
+
+.page-header p {
+    color: var(--text-light);
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* --- DIRECTOR'S VISION SECTION --- */
+.vision-section {
+    padding: 5rem 10%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4rem;
+    background: white;
+    position: relative;
+    z-index: 2;
+}
+
+.director-img-wrapper {
+    flex: 1;
+    min-width: 300px;
+}
+
+.director-img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 20px 20px 0 var(--gold);
+    filter: grayscale(20%);
+    transition: var(--transition);
+}
+
+.director-img:hover {
+    filter: grayscale(0%);
+    transform: scale(1.02);
+}
+
+.vision-content {
+    flex: 1;
+    min-width: 300px;
+}
+
+.vision-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-dark);
+}
+
+.vision-content .subtitle {
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.quote {
+    font-size: 1.2rem;
+    font-style: italic;
+    border-left: 4px solid var(--gold);
+    padding-left: 20px;
+    margin: 20px 0;
+    color: #555;
+    font-family: 'Playfair Display', serif;
+}
+
+/* --- THE STICKY EXPERIENCE SECTION --- */
+.experience-sticky {
+    background-color: #1a0505;
+    /* Deep Maroon background */
+    color: #fff;
+    padding: 6rem 5%;
+    position: relative;
+}
+
+.sticky-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 60px;
+}
+
+/* LEFT SIDE: STICKY */
+.sticky-sidebar {
+    flex: 1;
+    position: sticky;
+    top: 150px;
+    /* Stick 150px from top */
+    height: fit-content;
+    /* Important for sticky to work */
+    text-align: left;
+    padding-right: 30px;
+}
+
+.sticky-title {
+    font-size: 4rem;
+    line-height: 1.1;
+    color: var(--gold);
+    margin-bottom: 20px;
+}
+
+.decorative-line {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(to right, var(--gold), transparent);
+    margin-bottom: 30px;
+}
+
+.sticky-desc {
+    font-family: 'Lato', sans-serif;
+    color: #bbb;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 40px;
+}
+
+/* Rotating Badge Animation */
+.badge-container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.badge-circle {
+    width: 120px;
+    height: 120px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-weight: bold;
+    animation: spinText 20s linear infinite;
+    position: relative;
+}
+
+.badge-circle::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border: 1px dashed rgba(197, 160, 89, 0.4);
+    border-radius: 50%;
+}
+
+@keyframes spinText {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* RIGHT SIDE: SCROLL CONTENT */
+.scroll-content {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    /* Large gap for dramatic scrolling */
+    padding-bottom: 100px;
+}
+
+.exp-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    padding: 40px;
+    border-radius: 8px;
+    position: relative;
+    transition: all 0.6s ease;
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    /* Hidden initially */
+    transform: translateY(50px);
+}
+
+.exp-card.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.exp-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: var(--gold);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.card-number {
+    font-size: 4rem;
+    font-family: 'Playfair Display', serif;
+    color: rgba(255, 255, 255, 0.05);
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-weight: 700;
+}
+
+.exp-card h3 {
+    color: var(--gold);
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.exp-card p {
+    color: #ccc;
+    margin-bottom: 25px;
+}
+
+.stat-highlight {
+    display: inline-block;
+    padding: 8px 15px;
+    background: rgba(197, 160, 89, 0.2);
+    color: var(--gold);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* --- FOOTER --- */
+footer {
+    background-color: #110202;
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    border-top: 1px solid #333;
+}
+
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+    .page-header h1 {
+        font-size: 2.5rem;
+    }
+
+    .vision-section {
+        flex-direction: column;
+    }
+
+    /* Disable sticky on mobile, stack vertically */
+    .sticky-container {
+        flex-direction: column;
+    }
+
+    .sticky-sidebar {
+        position: relative;
+        top: 0;
+        text-align: center;
+        margin-bottom: 40px;
+        padding-right: 0;
+    }
+
+    .decorative-line {
+        margin: 0 auto 30px;
+    }
+
+    .badge-container {
+        justify-content: center;
+    }
+
+    .scroll-content {
+        gap: 40px;
+        padding-bottom: 0;
+    }
+}
+
+/* --- TEAM SECTION STYLES (ENHANCED) --- */
+.team-section {
+    padding: 6rem 10%;
+    /* New Texture Background */
+    background-color: #FCFBF7;
+    background-image: radial-gradient(#E0D0B0 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+    text-align: center;
+    position: relative;
+    border-top: 5px solid var(--gold);
+}
+
+/* Soft Fade for Pattern */
+.team-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #FCFBF7 0%, transparent 20%, transparent 80%, #FCFBF7 100%);
+    pointer-events: none;
+}
+
+.team-header {
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* New Title with Gold Wings */
+.team-header h2 {
+    font-size: 3rem;
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.team-header h2::before,
+.team-header h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--gold);
+    border-radius: 2px;
+}
+
+.team-grid {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    /* Increased Gap */
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+}
+
+.team-card {
+    background: #fff;
+    width: 400px;
+    /* Made Wider */
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+    /* Premium Shadow */
+    position: relative;
+    top: 0;
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(197, 160, 89, 0.2);
+}
+
+.img-box {
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 4px solid var(--gold);
+}
+
+
+.img-box img {
+    width: 100%;
+    height: 145%;
+    object-fit: cover;
+
+    transition: 0.5s ease;
+}
+
+.team-card:hover .img-box img {
+    transform: scale(1.1);
+}
+
+.team-info {
+    padding: 25px;
+    text-align: center;
+}
+
+.team-info h3 {
+    color: var(--primary-dark);
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.role {
+    display: block;
+    color: var(--gold);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+.team-info p {
+    color: #666;
+    font-style: italic;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+.contact-pill {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #f4f4f4;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: #333;
+    font-weight: bold;
+    transition: 0.3s;
+    margin-top: 15px;
+}
+
+.team-card:hover .contact-pill {
+    background-color: var(--primary-dark);
+    color: var(--gold);
+}
+
+/* Mobile Fix */
+@media (max-width: 768px) {
+    .team-card {
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+/* Mobile Tweak */
+@media only screen and (max-width: 700px) {
+    .modal-content {
+        width: 100%;
+    }
+
+    .team-header h2 {
+        font-size: 1.6rem;
+        color: var(--primary-dark);
+        margin-bottom: 1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 20px;
+    }
+}
+
+/* --- UNIVERSAL FADE UP ANIMATION --- */
+.hidden-fade {
+    opacity: 0;
+    transform: translateY(40px);
+    /* Pushes element down initially */
+    transition: all 0.8s ease-out;
+    will-change: opacity, transform;
+    /* Performance optimization */
+}
+
+.hidden-fade.show {
+    opacity: 1;
+    transform: translateY(0);
+    /* Slides up to natural position */
+}
+
+/* Stagger delays for smoother group reveals (Optional) */
+.delay-100 {
+    transition-delay: 0.1s;
+}
+
+.delay-200 {
+    transition-delay: 0.2s;
+}
+
+.delay-300 {
+    transition-delay: 0.3s;
+}
