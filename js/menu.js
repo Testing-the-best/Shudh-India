@@ -1,9 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+    // --- 1. SETUP SELECTORS ---
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-links a');
     
-    // --- 1. CLICK SCROLLING ---
+    // --- 2. SCROLL REVEAL ANIMATION (THE NEW PART) ---
+    const observerOptions = {
+        threshold: 0.1, // Trigger when 10% of element is visible
+        rootMargin: "0px 0px -50px 0px" // Trigger slightly before it hits bottom of screen
+    };
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Add the class that triggers the CSS transition
+                entry.target.classList.add('visible');
+                // Stop watching this element (so it doesn't fade out again)
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Select all elements we want to animate
+    const animatedElements = document.querySelectorAll('.section-header, .subsection-title, .menu-card');
+    
+    animatedElements.forEach(el => {
+        el.classList.add('scroll-fade'); // Add base hidden class
+        revealObserver.observe(el);      // Start watching
+    });
+
+    // --- 3. CLICK SCROLLING ---
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -11,9 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
-                // Adjustment for the sticky bar height
                 const offsetTop = targetSection.offsetTop - 75;
-
                 window.scrollTo({
                     top: offsetTop,
                     behavior: "smooth"
@@ -22,15 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 2. ACTIVE BUTTON HIGHLIGHTER ---
+    // --- 4. ACTIVE BUTTON HIGHLIGHTER ---
     window.addEventListener('scroll', () => {
         let current = '';
-        
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            
-            // Highlight button when section is 150px from top
             if (window.scrollY >= (sectionTop - 150)) {
                 current = '#' + section.getAttribute('id');
             }
@@ -40,11 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             link.classList.remove('active');
             if (link.getAttribute('href') === current) {
                 link.classList.add('active');
-                
-                // Optional: Auto-scroll the menu bar horizontally to keep active button in view
-                // link.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             }
         });
     });
-
 });
