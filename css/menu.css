@@ -1,0 +1,411 @@
+/* =========================================
+   CORE SETUP & VARIABLES
+   ========================================= */
+:root {
+    --primary-dark: #2A0A0A;
+    --primary-light: #4A1C1C;
+    --gold: #C5A059;
+    --off-white: #FCFBF7;
+    --text-dark: #333;
+    --nav-height-desktop: 70px;
+    --nav-height-mobile: 60px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { 
+    scroll-behavior: smooth; 
+    scroll-padding-top: 80px; /* Offset for smooth scrolling */
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--off-white);
+    /* Subtle background texture */
+    background-image: radial-gradient(#E0D0B0 1px, transparent 1px);
+    background-size: 30px 30px;
+    color: var(--text-dark);
+    /* CRITICAL FIX: 'clip' prevents scrollbar but allows sticky to work */
+    overflow-x: clip; 
+    position: relative;
+}
+
+h1, h2, h3 { font-family: 'Playfair Display', serif; }
+/* =========================================
+   HERO SECTION (With Brown Glass Overlay)
+   ========================================= */
+.menu-hero {
+    height: 60vh;
+    min-height: 400px;
+    /* Just the image here, no gradient anymore */
+    background: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    z-index: 1;
+    overflow: hidden; /* Prevents blur from leaking */
+}
+
+/* THE NEW GLASS OVERLAY LAYER */
+.menu-hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Using var(--primary-dark) #2A0A0A at 75% opacity */
+    background-color: rgba(61, 13, 13, 0.46);
+    /* The Glass Blur Effect */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* Safari Support */
+    z-index: 2; /* Sits between image and text */
+}
+
+/* Ensure text sits ON TOP of the glass layer */
+.hero-content {
+    position: relative;
+    z-index: 3; /* Highest priority */
+    animation: fadeInUp 1s ease-out;
+    padding: 20px;
+}
+
+.sub-headline {
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    color: #fff;
+    margin: 10px 0;
+    /* Sharper shadow for better readability against glass */
+    text-shadow: 0 2px 15px rgba(0,0,0,0.8);
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    color: rgba(255,255,255,0.9);
+}
+
+.btn-scroll {
+    display: inline-block;
+    margin-top: 25px;
+    color: var(--gold);
+    text-decoration: none;
+    border: 1px solid var(--gold);
+    padding: 10px 25px;
+    border-radius: 50px;
+    transition: 0.3s;
+    /* Slightly darker background for contrast */
+    background: rgba(42, 10, 10, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+.btn-scroll:hover {
+    background: var(--gold);
+    color: var(--primary-dark);
+}
+
+/* =========================================
+   STICKY NAVBAR (Redesigned)
+   ========================================= */
+.category-nav {
+    /* 1. iOS Safari Support */
+    position: -webkit-sticky; 
+    /* 2. Standard Support */
+    position: sticky; 
+    top: 0;
+    z-index: 9999;
+    
+    background-color: var(--primary-dark);
+    border-bottom: 2px solid var(--gold);
+    height: var(--nav-height-desktop);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.nav-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* Home Button */
+.home-btn {
+    text-decoration: none;
+    color: var(--gold);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: uppercase;
+    font-size: 1rem;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+}
+
+.home-btn:hover { 
+    opacity: 0.8; 
+    transform: scale(1.05);
+}
+
+/* Navigation Links (Scrollable on Mobile) */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    padding-left: 20px;
+    
+    /* Scroll Logic */
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE */
+    white-space: nowrap;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-links::-webkit-scrollbar { display: none; }
+
+/* The Pill Buttons */
+.nav-links li a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+    padding: 8px 18px;
+    border-radius: 50px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.nav-links li a:hover {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border-color: rgba(255,255,255,0.3);
+}
+
+.nav-links li a.active {
+    background: var(--gold);
+    color: var(--primary-dark);
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.4);
+    transform: scale(1.05);
+}
+
+/* =========================================
+   CONTENT SECTIONS
+   ========================================= */
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-header h2 {
+    font-size: 2.8rem;
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+}
+
+.gold-line {
+    width: 80px;
+    height: 3px;
+    background: var(--gold);
+    margin: 0 auto 15px;
+}
+
+.subsection-title {
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin: 50px 0 25px 0;
+    border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+    padding-bottom: 10px;
+    display: block;
+    width: 100%;
+}
+
+/* =========================================
+   PREMIUM CARD GRID & HOVER ANIMATIONS
+   ========================================= */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.menu-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy transition */
+    border: 1px solid rgba(0,0,0,0.03);
+    position: relative;
+    top: 0;
+}
+
+/* CARD HOVER EFFECT: Lift + Gold Shadow */
+.menu-card:hover { 
+    transform: translateY(-10px); 
+    box-shadow: 0 20px 40px rgba(197, 160, 89, 0.15);
+    border-color: rgba(197, 160, 89, 0.3);
+}
+
+/* IMAGE CONTAINER */
+.card-img { 
+    height: 220px; 
+    width: 100%; 
+    overflow: hidden;
+    position: relative;
+}
+
+.card-img img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    transition: transform 0.6s ease;
+}
+
+/* IMAGE ZOOM EFFECT */
+.menu-card:hover .card-img img {
+    transform: scale(1.1); /* Smooth zoom in */
+}
+
+/* CARD INFO */
+.card-info { padding: 25px 20px; }
+
+.card-info h3 { 
+    color: var(--primary-dark); 
+    font-size: 1.3rem; 
+    margin-bottom: 8px;
+    transition: color 0.3s;
+}
+
+/* Title turns gold on hover */
+.menu-card:hover .card-info h3 {
+    color: var(--gold);
+}
+
+.card-info p { 
+    color: #666; 
+    font-size: 0.95rem; 
+    line-height: 1.5;
+}
+
+/* TAGS (Bestseller / Trending) */
+.tag {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+.tag.trending { background-color: #ff5e57; }
+.tag.best-seller { background-color: var(--gold); color: var(--primary-dark); }
+.tag.new { background-color: #2ecc71; }
+
+
+/* =========================================
+   FOOTER
+   ========================================= */
+.menu-footer {
+    background: var(--primary-dark);
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+    margin-top: 50px;
+    border-top: 4px solid var(--gold);
+}
+
+.gold-text { color: var(--gold); font-weight: bold; }
+.back-link { 
+    color: #aaa; 
+    text-decoration: none; 
+    border-bottom: 1px solid #555; 
+    padding-bottom: 2px;
+    transition: 0.3s;
+}
+.back-link:hover { color: var(--gold); border-color: var(--gold); }
+
+/* =========================================
+   MOBILE RESPONSIVENESS (Max-Width 768px)
+   ========================================= */
+@media (max-width: 768px) {
+    
+    html { scroll-padding-top: 65px; }
+
+    .menu-hero {
+        height: 50vh;
+        background-attachment: scroll; /* Fix for iPhone jitter */
+    }
+
+    .hero-content h1 { font-size: 2.2rem; }
+
+    .category-nav {
+        height: var(--nav-height-mobile);
+    }
+
+    .nav-container {
+        padding: 0 10px;
+        gap: 10px;
+    }
+
+    /* Simplify Home Button to Icon Only */
+    .home-btn span { display: none; }
+    .home-btn i { font-size: 1.2rem; padding: 5px; }
+
+    .nav-links li a {
+        font-size: 0.85rem;
+        padding: 6px 14px;
+    }
+    
+    /* Single Column Grid */
+    .menu-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto 40px;
+    }
+}
+
+/* Keyframes */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

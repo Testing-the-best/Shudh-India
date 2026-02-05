@@ -362,26 +362,24 @@ footer {
     }
 }
 
-/* --- TEAM SECTION STYLES (ENHANCED) --- */
+/* --- TEAM SECTION (ROYAL THEME) --- */
 .team-section {
-    padding: 6rem 10%;
-    /* New Texture Background */
+    padding: 5rem 5%;
     background-color: #FCFBF7;
-    background-image: radial-gradient(#E0D0B0 1.5px, transparent 1.5px);
-    background-size: 30px 30px;
+    /* Subtle dot pattern */
+    background-image: radial-gradient(#d4c5a3 1px, transparent 1px);
+    background-size: 25px 25px;
     text-align: center;
     position: relative;
-    border-top: 5px solid var(--gold);
+    border-top: 4px solid var(--gold);
+    overflow: hidden;
 }
 
-/* Soft Fade for Pattern */
+/* Fade Overlay for the background pattern */
 .team-section::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     background: linear-gradient(to bottom, #FCFBF7 0%, transparent 20%, transparent 80%, #FCFBF7 100%);
     pointer-events: none;
 }
@@ -392,31 +390,40 @@ footer {
     z-index: 2;
 }
 
-/* New Title with Gold Wings */
+/* Gold Wing Title */
 .team-header h2 {
-    font-size: 3rem;
+    font-size: 2.8rem;
     color: var(--primary-dark);
     margin-bottom: 1rem;
     display: inline-flex;
     align-items: center;
-    gap: 20px;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap; /* Allows wrapping on mobile */
 }
 
 .team-header h2::before,
 .team-header h2::after {
     content: '';
     display: block;
-    width: 60px;
+    width: 50px; /* Wing length */
     height: 3px;
     background-color: var(--gold);
     border-radius: 2px;
 }
 
+.team-header p {
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+}
+
+/* --- CARD GRID --- */
 .team-grid {
     display: flex;
     justify-content: center;
     gap: 2rem;
-    /* Increased Gap */
     flex-wrap: wrap;
     position: relative;
     z-index: 2;
@@ -424,92 +431,120 @@ footer {
 
 .team-card {
     background: #fff;
-    width: 400px;
-    /* Made Wider */
-    border: none;
+    /* Flexible width: Minimum 300px, but allows growing */
+    flex: 1 1 300px; 
+    max-width: 380px; 
     border-radius: 12px;
     overflow: hidden;
-    transition: all 0.4s ease;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-    /* Premium Shadow */
-    position: relative;
-    top: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy effect */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Soft shadow start */
+    border: 1px solid rgba(0,0,0,0.02);
 }
 
 .team-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 25px 50px rgba(197, 160, 89, 0.2);
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(197, 160, 89, 0.25); /* Gold shadow on hover */
 }
 
+/* Image Container */
 .img-box {
-    height: 300px;
+    height: 320px;
+    width: 100%;
     overflow: hidden;
     position: relative;
     border-bottom: 4px solid var(--gold);
 }
 
-
 .img-box img {
     width: 100%;
-    height: 145%;
-    object-fit: cover;
-
-    transition: 0.5s ease;
+    height: 100%;
+    object-fit: cover; /* Ensures face isn't stretched */
+    object-position: top center; /* Focuses on faces */
+    transition: transform 0.6s ease;
+    filter: grayscale(10%); /* Slight classy filter */
 }
 
 .team-card:hover .img-box img {
-    transform: scale(1.1);
+    transform: scale(1.08);
+    filter: grayscale(0%); /* Full color on hover */
 }
 
+/* Info Section */
 .team-info {
-    padding: 25px;
+    padding: 30px 20px;
     text-align: center;
+    background: #fff;
 }
 
 .team-info h3 {
     color: var(--primary-dark);
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin-bottom: 5px;
+    font-family: 'Playfair Display', serif;
 }
 
 .role {
     display: block;
     color: var(--gold);
-    font-weight: bold;
+    font-weight: 700;
     text-transform: uppercase;
     font-size: 0.8rem;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     margin-bottom: 15px;
 }
 
 .team-info p {
-    color: #666;
+    color: #555;
     font-style: italic;
     font-size: 0.95rem;
-    margin-bottom: 20px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    padding: 0 10px;
+}
+
+/* Contact Pills */
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
 }
 
 .contact-pill {
-    display: inline-block;
-    padding: 8px 15px;
-    background-color: #f4f4f4;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
     border-radius: 50px;
     font-size: 0.85rem;
-    color: #333;
-    font-weight: bold;
+    color: #444;
+    font-weight: 600;
     transition: 0.3s;
-    margin-top: 15px;
+    text-decoration: none; /* If you make them links later */
 }
 
 .team-card:hover .contact-pill {
     background-color: var(--primary-dark);
     color: var(--gold);
+    border-color: var(--primary-dark);
 }
 
-/* Mobile Fix */
+/* Mobile Tweaks */
 @media (max-width: 768px) {
+    .team-header h2 {
+        font-size: 2rem;
+    }
+    
+    .team-header h2::before,
+    .team-header h2::after {
+        width: 30px; /* Smaller wings on mobile */
+    }
+    
     .team-card {
-        width: 100%;
+        max-width: 100%; /* Full width on mobile */
     }
 }
 
