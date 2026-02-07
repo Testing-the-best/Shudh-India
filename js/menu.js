@@ -77,6 +77,9 @@ function addToCart(name, price, btn) {
 
     cart.push({ name, price });
 
+    // store item name on button itself
+    btn.dataset.item = name.toLowerCase().trim();
+
     btn.innerText = "Added ✓";
     btn.disabled = true;
     btn.style.background = "#C5A059";
@@ -123,19 +126,20 @@ function updateCart() {
 
 function removeItem(i) {
 
-    let removed = cart[i].name;
+    const removed = cart[i].name.toLowerCase().trim();
 
     cart.splice(i, 1);
     updateCart();
 
     document.querySelectorAll(".btn-add").forEach(btn => {
-        if (btn.innerText.includes("Added") && btn.parentElement.innerText.includes(removed)) {
+        if (btn.dataset.item === removed) {
             btn.disabled = false;
             btn.innerText = "Add to Menu";
             btn.style.background = "#2A0A0A";
         }
     });
 }
+
 
 
 function openCart() {
@@ -213,7 +217,14 @@ function showQR() {
 
 
 
+let orderPlaced = false;   // prevents double order
+
 function placeOrder() {
+
+    if (orderPlaced) {
+        alert("Order already placed.");
+        return;
+    }
 
     if (!custName.value || !custPhone.value || !custEmail.value) {
         alert("Please fill all details");
@@ -223,36 +234,48 @@ function placeOrder() {
     let items = cart.map(i => i.name).join(", ");
     let total = document.getElementById("totalPrice").innerText;
 
-    console.log("SENDING:", {
-        customer_name: custName.value,
-        phone: custPhone.value,
-        email: custEmail.value,
-        address: custAddress.value,
-        items: items,
-        total: total
-    });
+    // -------- WHATSAPP FIRST (so you don't waste EmailJS credits while testing)
+    const msg = `Hi,
 
+I have completed the payment.
+
+Name: ${custName.value}
+Items: ${items}
+Total: ₹${total}
+
+Please find the payment screenshot attached.`;
+
+    window.open("https://wa.me/919452737817?text=" + encodeURIComponent(msg), "_blank");
+
+
+
+
+
+    // -------- EMAIL (only after whatsapp opened)
     emailjs.send("service_ckwt5qn", "template_wslh0f7", {
         customer_name: custName.value,
         phone: custPhone.value,
-        reply_to: custEmail.value,   // <-- IMPORTANT
+        reply_to: custEmail.value,
         address: custAddress.value,
         items: items,
         total: total
-    })
+    }).then(() => {
 
-        .then(res => {
-            console.log("SUCCESS:", res);
+        orderPlaced = true;
 
-            alert("Order placed!");
+        alert("Order placed successfully!");
 
-            window.open(`https://wa.me/919452737817?text=Thanks for ordering. Please send payment screenshot with your name.`);
+        cart = [];
+        updateCart();
 
-        })
-        .catch(err => {
-            console.log("EMAIL ERROR FULL:", err);
-            alert("Email failed – check console");
-        });
+        document.getElementById("qrSection").style.display = "none";
+        document.getElementById("cartModal").classList.remove("active");
+
+    }).catch(err => {
+        console.log(err);
+        alert("Email failed");
+    });
+
 }
 
 
@@ -261,20 +284,7 @@ function placeOrder() {
 
 
 
-//---------------auto whatapp message-------------
 
-function sendWhatsApp(name, total) {
-
-    const msg = `Hi ${name}, thanks for ordering from Shudh India Catering.
-
-Total: ₹${total}
-
-Please send your UPI payment screenshot WITH YOUR NAME to this WhatsApp number.
-
-We will confirm shortly.`;
-
-    window.open(`https://wa.me/919452737817?text=${encodeURIComponent(msg)}`, "_blank");
-}
 
 
 
@@ -309,3 +319,34 @@ function checkForm() {
     }
 }
 
+
+
+
+
+//-------------share ss opens whatsapp------
+
+
+window.sharePayment = function () {
+
+    if (!custName.value) {
+        alert("Please enter your name first");
+        return;
+    }
+
+    let total = document.getElementById("totalPrice").innerText;
+
+    const msg = `Hi,
+
+I have completed the payment.
+
+Name: ${custName.value}
+Total: ₹${total}
+
+Please find the payment screenshot attached.`;
+
+
+    window.open(
+        "https://wa.me/919452737817?text=" + encodeURIComponent(msg),
+        "_blank"
+    );
+};
