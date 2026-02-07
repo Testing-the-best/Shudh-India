@@ -875,11 +875,28 @@
 
             <div id="qrSection" style="display:none">
                 <img src="../qr_code/QR_code.png" width="200">
-                <button onclick="placeOrder()">Share the Payment ScreenShot</button>
+                <input type="file" id="paymentImage" accept="image/*" hidden>
+
+                <button class="share-btn" onclick="selectScreenshot()">Share the Payment Screenshot</button>
+
+
             </div>
 
         </div>
     </div>
+
+<div id="successModal" class="success-modal">
+  <div class="success-box">
+    <h2>🎉 Order Placed!</h2>
+    <p>Your order ID:</p>
+    <h3 id="successOrderId"></h3>
+
+    <p>We’ve received your order.<br>
+    Our team will contact you shortly.</p>
+
+    <button onclick="closeSuccess()">Continue Browsing</button>
+  </div>
+</div>
 
 
    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -897,6 +914,9 @@
 
  firebase.initializeApp(firebaseConfig);
 </script>
+
+
+
 
 
 <script src="../js/menu.js"></script>

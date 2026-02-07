@@ -119,6 +119,16 @@ function loadOrders() {
                                     <span class="items-title">Order Contents</span>
                                     ${itemsList}
                                 </div>
+                                ${o.paymentImage ? `
+<div style="margin-top:12px">
+    <img src="${o.paymentImage}"
+    style="width:100%;
+    max-height:240px;
+    object-fit:contain;
+    border-radius:10px;
+    border:1px solid #ddd;">
+</div>
+` : ""}
 
                                 <div class="price-tag">₹${o.total}</div>
                             </div>

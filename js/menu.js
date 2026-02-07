@@ -1,4 +1,7 @@
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
+function generateOrderId() {
+    return "ORD-" + Date.now().toString().slice(-6);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -77,11 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function addToCart(name, price, btn) {
 
-  if(cart.some(i=>i.name===name)) return; // prevent duplicates
+    if (cart.some(i => i.name === name)) return; // prevent duplicates
 
-  cart.push({ name, price });
+    cart.push({ name, price });
 
-  updateCart();
+    updateCart();
 }
 
 
@@ -216,52 +219,51 @@ let orderPlaced = false;   // prevents double order
 
 function placeOrder() {
 
-    if (orderPlaced) {
-        alert("Order already placed.");
-        return;
-    }
-
     if (!custName.value || !custPhone.value || !custEmail.value) {
         alert("Please fill all details");
         return;
     }
 
+    if (cart.length === 0) {
+        alert("Your cart is empty");
+        return;
+    }
+
+    const orderId = generateOrderId();
+
     let items = cart.map(i => i.name).join(", ");
-    let total = document.getElementById("totalPrice").innerText;
-    db.collection("orders").add({
-        name: custName.value,
+    let total = totalPrice.innerText;
+
+    emailjs.send("service_ckwt5qn", "template_wslh0f7", {
+        order_id: orderId,
+        customer_name: custName.value,
         phone: custPhone.value,
-        email: custEmail.value,
+        reply_to: custEmail.value,
         address: custAddress.value,
-        total: total,
-        items: cart,              // <-- add items
-        status: "pending",        // <-- add status
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
+        items: items,
+        total: total
+    })
+        .then(() => {
 
+            // clear cart
+            cart = [];
+            updateCart();
 
+            // show success screen
+            document.getElementById("successOrderId").innerText = orderId;
+            document.getElementById("successModal").style.display = "flex";
 
-    // -------- WHATSAPP FIRST 
-    const msg = `Hi,
-
-I have completed the payment.
-
-Name: ${custName.value}
-Items: ${items}
-Total: ₹${total}
-
-Please find the payment screenshot attached.`;
-
-    window.open("https://wa.me/916387343878?text=" + encodeURIComponent(msg), "_blank");
-
-
-    localStorage.removeItem("cart"); //empties cart after successful order
-    cart = [];
-    updateCart();
-
-
+            
+        })
+        .catch(() => {
+            alert("Order failed");
+        });
 }
 
+
+function closeSuccess() {
+    document.getElementById("successModal").style.display = "none";
+}
 
 
 
@@ -307,33 +309,46 @@ function checkForm() {
 
 
 
-//-------------share ss opens whatsapp------
+
 
 
 window.sharePayment = function () {
 
-    if (!custName.value) {
-        alert("Please enter your name first");
+    if (!custName.value || !custPhone.value || !custEmail.value) {
+        alert("Please fill all details");
+        return;
+    }
+
+    if (cart.length === 0) {
+        alert("Cart is empty");
         return;
     }
 
     let total = document.getElementById("totalPrice").innerText;
+    let items = cart;
 
-    const msg = `Hi,
+    // 🔥 SAVE TO FIREBASE HERE
+    db.collection("orders").add({
+        name: custName.value,
+        phone: custPhone.value,
+        email: custEmail.value,
+        address: custAddress.value,
+        total: total,
+        items: items,
+        status: "pending",
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
 
-I have completed the payment.
+    // Show success modal
+    document.getElementById("successModal").style.display = "flex";
 
-Name: ${custName.value}
-Total: ₹${total}
-
-Please find the payment screenshot attached.`;
-
-
-    window.open(
-        "https://wa.me/919452737817?text=" + encodeURIComponent(msg),
-        "_blank"
-    );
+    // Clear cart
+    cart = [];
+    localStorage.removeItem("cart");
+    updateCart();
 };
+
+
 
 
 
@@ -352,3 +367,58 @@ const db = firebase.firestore();
 document.addEventListener("DOMContentLoaded", () => {
     updateCart();
 });
+
+
+
+function selectScreenshot(){
+ document.getElementById("paymentImage").click();
+}
+
+document.getElementById("paymentImage").addEventListener("change", uploadScreenshot);
+
+function uploadScreenshot(e){
+
+ if(cart.length===0){
+   alert("Cart empty");
+   return;
+ }
+
+ const file = e.target.files[0];
+ if(!file) return;
+
+ const reader = new FileReader();
+
+ reader.onload = function(){
+
+   const base64Image = reader.result;
+   const total = totalPrice.innerText;
+   const orderId = "ORD"+Date.now();
+
+   db.collection("orders").add({
+     orderId: orderId,
+     name: custName.value,
+     phone: custPhone.value,
+     email: custEmail.value,
+     address: custAddress.value,
+     total: total,
+     items: cart,
+     paymentImage: base64Image,
+     status: "pending",
+     createdAt: firebase.firestore.FieldValue.serverTimestamp()
+   })
+   .then(()=>{
+
+     document.getElementById("successOrderId").innerText = orderId;
+     document.getElementById("successModal").style.display="flex";
+
+     cart=[];
+     localStorage.removeItem("cart");
+     updateCart();
+
+   
+   });
+ };
+
+ reader.readAsDataURL(file);
+}
+
