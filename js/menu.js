@@ -207,10 +207,7 @@ function showQR() {
 
 
 
-//-----------emailjs---------
-(function () {
-    emailjs.init("7lwYU5Uw7qyTtx40_");
-})();
+
 
 
 
@@ -244,7 +241,7 @@ function placeOrder() {
 
 
 
-    // -------- WHATSAPP FIRST (so you don't waste EmailJS credits while testing)
+    // -------- WHATSAPP FIRST 
     const msg = `Hi,
 
 I have completed the payment.
@@ -262,32 +259,6 @@ Please find the payment screenshot attached.`;
     cart = [];
     updateCart();
 
-
-
-    // -------- EMAIL (only after whatsapp opened)
-    // emailjs.send("service_ckwt5qn", "template_wslh0f7", {
-    //     customer_name: custName.value,
-    //     phone: custPhone.value,
-    //     reply_to: custEmail.value,
-    //     address: custAddress.value,
-    //     items: items,
-    //     total: total
-    // }).then(() => {
-
-    //     orderPlaced = true;
-
-    //     alert("Order placed successfully!");
-
-    //     cart = [];
-    //     updateCart();
-
-    //     document.getElementById("qrSection").style.display = "none";
-    //     document.getElementById("cartModal").classList.remove("active");
-
-    // }).catch(err => {
-    //     console.log(err);
-    //     alert("Email failed");
-    // });
 
 }
 
