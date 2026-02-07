@@ -86,6 +86,7 @@ function addToCart(name, price, btn) {
 
 
 function updateCart() {
+
     document.getElementById("cartCount").innerText = cart.length;
 
     const items = document.getElementById("cartItems");
@@ -96,17 +97,29 @@ function updateCart() {
     cart.forEach((item, i) => {
         total += item.price;
         items.innerHTML += `
-            <div class="cart-item">
-                <div>
-                    <strong>${item.name}</strong><br>₹${item.price}
-                </div>
-                <button onclick="removeItem(${i})">X</button>
-            </div>
-        `;
+     <div class="cart-item">
+        <div>
+           <strong>${item.name}</strong><br>₹${item.price}
+        </div>
+        <button onclick="removeItem(${i})">X</button>
+     </div>
+   `;
     });
 
     document.getElementById("totalPrice").innerText = total;
+
+    // ---------- NEW ----------
+    const checkoutBtn = document.getElementById("checkoutBtn");
+
+    if (cart.length === 0) {
+        checkoutBtn.disabled = true;
+        checkoutBtn.style.opacity = "0.5";
+    } else {
+        checkoutBtn.disabled = false;
+        checkoutBtn.style.opacity = "1";
+    }
 }
+
 
 function removeItem(i) {
 
@@ -140,25 +153,50 @@ function closeCart(e) {
 
 function showForm() {
 
- document.getElementById("userForm").style.display = "flex";
+    if (cart.length === 0) {
+        alert("Please add items to cart first");
+        return;
+    }
 
- ["custName","custPhone","custEmail","custAddress"].forEach(id=>{
-   document.getElementById(id).addEventListener("input",checkForm);
- });
+    document.getElementById("userForm").style.display = "flex";
 
- checkForm();
+    ["custName", "custPhone", "custEmail", "custAddress"].forEach(id => {
+        document.getElementById(id).addEventListener("input", checkForm);
+    });
+
+    checkForm();
 }
+
 
 
 function showQR() {
 
-    if (!custName.value || !custPhone.value || !custEmail.value || !custAddress.value) {
-        alert("Please fill all details before proceeding");
+    const phoneValid = /^[6-9]\d{9}$/.test(custPhone.value);
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(custEmail.value);
+
+    if (cart.length === 0) {
+        alert("Cart is empty");
+        return;
+    }
+
+    if (!custName.value || !custAddress.value) {
+        alert("Please fill all details");
+        return;
+    }
+
+    if (!phoneValid) {
+        alert("Please enter valid 10-digit mobile number");
+        return;
+    }
+
+    if (!emailValid) {
+        alert("Please enter valid email address");
         return;
     }
 
     document.getElementById("qrSection").style.display = "block";
 }
+
 
 
 
@@ -252,15 +290,17 @@ inputs.forEach(id => {
 
 function checkForm() {
 
-    let filled = true;
+    const name = custName.value.trim();
+    const phone = custPhone.value.trim();
+    const email = custEmail.value.trim();
+    const address = custAddress.value.trim();
 
-    inputs.forEach(id => {
-        if (!document.getElementById(id).value.trim()) filled = false;
-    });
+    const phoneValid = /^[6-9]\d{9}$/.test(phone);   // Indian mobile
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     const btn = document.getElementById("payBtn");
 
-    if (filled) {
+    if (name && phoneValid && emailValid && address && cart.length > 0) {
         btn.disabled = false;
         btn.style.opacity = "1";
     } else {
@@ -268,3 +308,4 @@ function checkForm() {
         btn.style.opacity = "0.6";
     }
 }
+
