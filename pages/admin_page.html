@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Shudh India</title>
+    <link rel="stylesheet" href="../css/admin.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:wght@600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+    
+</head>
+
+<body>
+
+    <header>
+        <a href="../index.html" style="text-decoration: none;"><div class="brand"><i class="fas fa-utensils" style="margin-right:10px;"></i>Shudh India</div></a>
+        <div class="user-info" id="adminEmailDisplay">Admin Panel</div>
+    </header>
+
+    <div class="main-wrapper">
+
+        <div id="loginCard" class="login-container">
+            <div class="login-card">
+                <h3>Admin Access</h3>
+                <p style="color:#666; margin-bottom:20px; font-size:14px;">Please sign in to manage orders</p>
+                <div style="text-align:left;">
+                    <input id="email" placeholder="Admin Email" type="email">
+                    <input id="password" type="password" placeholder="Secure Password">
+                </div>
+                <button onclick="login()">
+                    Sign In <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="dashboard" class="container hidden">
+            <h2 class="page-title">
+                Live Orders
+                <button onclick="manualRefresh(this)" class="secondary"
+                    style="width:auto; padding:8px 15px; font-size:14px;">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </h2>
+            <div id="orders">
+            </div>
+        </div>
+
+    </div>
+
+    <script src="../js/admin.js"></script>
+
+</body>
+
+</html>

@@ -1,3 +1,5 @@
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. SETUP SELECTORS ---
@@ -71,73 +73,69 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //-------------cart system-----------
 // ================= CART LOGIC =================
-let cart = [];
+
 
 function addToCart(name, price, btn) {
 
-    cart.push({ name, price });
+  if(cart.some(i=>i.name===name)) return; // prevent duplicates
 
-    // store item name on button itself
-    btn.dataset.item = name.toLowerCase().trim();
+  cart.push({ name, price });
 
-    btn.innerText = "Added ✓";
-    btn.disabled = true;
-    btn.style.background = "#C5A059";
-
-    updateCart();
+  updateCart();
 }
+
 
 
 function updateCart() {
 
-    document.getElementById("cartCount").innerText = cart.length;
-
-    const items = document.getElementById("cartItems");
-    items.innerHTML = "";
-
+    cartItems.innerHTML = "";
     let total = 0;
 
     cart.forEach((item, i) => {
         total += item.price;
-        items.innerHTML += `
-     <div class="cart-item">
-        <div>
-           <strong>${item.name}</strong><br>₹${item.price}
-        </div>
-        <button onclick="removeItem(${i})">X</button>
-     </div>
+
+        cartItems.innerHTML += `
+    <div class="cart-item">
+      <b>${item.name}</b><br>
+      ₹${item.price}
+      <button onclick="removeItem(${i})">x</button>
+    </div>
    `;
     });
 
-    document.getElementById("totalPrice").innerText = total;
+    totalPrice.innerText = total;
 
-    // ---------- NEW ----------
-    const checkoutBtn = document.getElementById("checkoutBtn");
+    // save cart
+    localStorage.setItem("cart", JSON.stringify(cart));
 
-    if (cart.length === 0) {
-        checkoutBtn.disabled = true;
-        checkoutBtn.style.opacity = "0.5";
-    } else {
-        checkoutBtn.disabled = false;
-        checkoutBtn.style.opacity = "1";
-    }
-}
-
-
-function removeItem(i) {
-
-    const removed = cart[i].name.toLowerCase().trim();
-
-    cart.splice(i, 1);
-    updateCart();
-
+    // 🔥 sync buttons with cart
     document.querySelectorAll(".btn-add").forEach(btn => {
-        if (btn.dataset.item === removed) {
-            btn.disabled = false;
+        const name = btn.getAttribute("onclick").split("'")[1];
+
+        const exists = cart.some(i => i.name === name);
+
+        if (exists) {
+            btn.innerText = "Added ✓";
+            btn.disabled = true;
+            btn.style.background = "#C5A059";
+        } else {
             btn.innerText = "Add to Menu";
+            btn.disabled = false;
             btn.style.background = "#2A0A0A";
         }
     });
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    document.getElementById("cartCount").innerText = cart.length;
+
+
+}
+
+
+
+function removeItem(i) {
+    cart.splice(i, 1);
+    updateCart();
 }
 
 
@@ -233,6 +231,18 @@ function placeOrder() {
 
     let items = cart.map(i => i.name).join(", ");
     let total = document.getElementById("totalPrice").innerText;
+    db.collection("orders").add({
+        name: custName.value,
+        phone: custPhone.value,
+        email: custEmail.value,
+        address: custAddress.value,
+        total: total,
+        items: cart,              // <-- add items
+        status: "pending",        // <-- add status
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+
 
     // -------- WHATSAPP FIRST (so you don't waste EmailJS credits while testing)
     const msg = `Hi,
@@ -245,36 +255,39 @@ Total: ₹${total}
 
 Please find the payment screenshot attached.`;
 
-    window.open("https://wa.me/919452737817?text=" + encodeURIComponent(msg), "_blank");
+    window.open("https://wa.me/916387343878?text=" + encodeURIComponent(msg), "_blank");
 
 
+    localStorage.removeItem("cart"); //empties cart after successful order
+    cart = [];
+    updateCart();
 
 
 
     // -------- EMAIL (only after whatsapp opened)
-    emailjs.send("service_ckwt5qn", "template_wslh0f7", {
-        customer_name: custName.value,
-        phone: custPhone.value,
-        reply_to: custEmail.value,
-        address: custAddress.value,
-        items: items,
-        total: total
-    }).then(() => {
+    // emailjs.send("service_ckwt5qn", "template_wslh0f7", {
+    //     customer_name: custName.value,
+    //     phone: custPhone.value,
+    //     reply_to: custEmail.value,
+    //     address: custAddress.value,
+    //     items: items,
+    //     total: total
+    // }).then(() => {
 
-        orderPlaced = true;
+    //     orderPlaced = true;
 
-        alert("Order placed successfully!");
+    //     alert("Order placed successfully!");
 
-        cart = [];
-        updateCart();
+    //     cart = [];
+    //     updateCart();
 
-        document.getElementById("qrSection").style.display = "none";
-        document.getElementById("cartModal").classList.remove("active");
+    //     document.getElementById("qrSection").style.display = "none";
+    //     document.getElementById("cartModal").classList.remove("active");
 
-    }).catch(err => {
-        console.log(err);
-        alert("Email failed");
-    });
+    // }).catch(err => {
+    //     console.log(err);
+    //     alert("Email failed");
+    // });
 
 }
 
@@ -350,3 +363,21 @@ Please find the payment screenshot attached.`;
         "_blank"
     );
 };
+
+
+
+
+
+
+
+
+// -------------firebase ----------
+const db = firebase.firestore();
+
+
+
+
+//update cart
+document.addEventListener("DOMContentLoaded", () => {
+    updateCart();
+});

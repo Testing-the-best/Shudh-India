@@ -72,7 +72,7 @@
 
                 <div class="menu-card">
                     <div class="card-img">
-                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=600&auto=format&fit=crop"
+                        <img src="https://img.delicious.com.au/CKMUcpx-/w1200/del/2015/11/summer-cocktails-24374-3.jpg"
                             alt="Party Starter">
                     </div>
                     <div class="card-info">
@@ -86,7 +86,7 @@
                 <div class="menu-card">
                     <span class="combo-badge">TRENDING</span>
                     <div class="card-img">
-                        <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600&auto=format&fit=crop"
+                        <img src="https://th.bing.com/th/id/OIP.QsUoriLEPJTAhOgeSxbnxwHaEr?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3"
                             alt="Asian Feast">
                     </div>
                     <div class="card-info">
@@ -838,7 +838,7 @@
     </footer>
 
 
-    <script src="../js/menu.js"></script>
+    
 
 
 
@@ -874,13 +874,32 @@
             </div>
 
             <div id="qrSection" style="display:none">
-                <img src="../qr_code/qr.jpeg" width="200">
+                <img src="../qr_code/QR_code.png" width="200">
                 <button onclick="placeOrder()">Share the Payment ScreenShot</button>
             </div>
 
         </div>
     </div>
 
+
+   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+ const firebaseConfig = {
+   apiKey: "AIzaSyBt8S-hhNLDOOCP9wBqzfX2RqE4lh9AODs",
+   authDomain: "shudh-india.firebaseapp.com",
+   projectId: "shudh-india",
+   storageBucket: "shudh-india.firebasestorage.app",
+   messagingSenderId: "1065730988145",
+   appId: "1:1065730988145:web:733d8f2c1b0a0e426663d0"
+ };
+
+ firebase.initializeApp(firebaseConfig);
+</script>
+
+
+<script src="../js/menu.js"></script>
 </body>
 
 </html>
