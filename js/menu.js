@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // --- 1. SETUP SELECTORS ---
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-links a');
-    
+
     // --- 2. SCROLL REVEAL ANIMATION (THE NEW PART) ---
     const observerOptions = {
         threshold: 0.1, // Trigger when 10% of element is visible
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Select all elements we want to animate
     const animatedElements = document.querySelectorAll('.section-header, .subsection-title, .menu-card');
-    
+
     animatedElements.forEach(el => {
         el.classList.add('scroll-fade'); // Add base hidden class
         revealObserver.observe(el);      // Start watching
@@ -31,11 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 3. CLICK SCROLLING ---
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             const targetSection = document.querySelector(targetId);
-            
+
             if (targetSection) {
                 const offsetTop = targetSection.offsetTop - 75;
                 window.scrollTo({
@@ -64,3 +64,207 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+
+
+
+
+//-------------cart system-----------
+// ================= CART LOGIC =================
+let cart = [];
+
+function addToCart(name, price, btn) {
+
+    cart.push({ name, price });
+
+    btn.innerText = "Added ✓";
+    btn.disabled = true;
+    btn.style.background = "#C5A059";
+
+    updateCart();
+}
+
+
+function updateCart() {
+    document.getElementById("cartCount").innerText = cart.length;
+
+    const items = document.getElementById("cartItems");
+    items.innerHTML = "";
+
+    let total = 0;
+
+    cart.forEach((item, i) => {
+        total += item.price;
+        items.innerHTML += `
+            <div class="cart-item">
+                <div>
+                    <strong>${item.name}</strong><br>₹${item.price}
+                </div>
+                <button onclick="removeItem(${i})">X</button>
+            </div>
+        `;
+    });
+
+    document.getElementById("totalPrice").innerText = total;
+}
+
+function removeItem(i) {
+
+    let removed = cart[i].name;
+
+    cart.splice(i, 1);
+    updateCart();
+
+    document.querySelectorAll(".btn-add").forEach(btn => {
+        if (btn.innerText.includes("Added") && btn.parentElement.innerText.includes(removed)) {
+            btn.disabled = false;
+            btn.innerText = "Add to Menu";
+            btn.style.background = "#2A0A0A";
+        }
+    });
+}
+
+
+function openCart() {
+    document.getElementById("cartModal").classList.add("active");
+    document.body.classList.add("cart-open");
+}
+
+function closeCart(e) {
+    if (!e || e.target.id === "cartModal") {
+        document.getElementById("cartModal").classList.remove("active");
+        document.body.classList.remove("cart-open");
+    }
+}
+
+
+function showForm() {
+
+ document.getElementById("userForm").style.display = "flex";
+
+ ["custName","custPhone","custEmail","custAddress"].forEach(id=>{
+   document.getElementById(id).addEventListener("input",checkForm);
+ });
+
+ checkForm();
+}
+
+
+function showQR() {
+
+    if (!custName.value || !custPhone.value || !custEmail.value || !custAddress.value) {
+        alert("Please fill all details before proceeding");
+        return;
+    }
+
+    document.getElementById("qrSection").style.display = "block";
+}
+
+
+
+
+
+
+
+
+//-----------emailjs---------
+(function () {
+    emailjs.init("7lwYU5Uw7qyTtx40_");
+})();
+
+
+
+
+function placeOrder() {
+
+    if (!custName.value || !custPhone.value || !custEmail.value) {
+        alert("Please fill all details");
+        return;
+    }
+
+    let items = cart.map(i => i.name).join(", ");
+    let total = document.getElementById("totalPrice").innerText;
+
+    console.log("SENDING:", {
+        customer_name: custName.value,
+        phone: custPhone.value,
+        email: custEmail.value,
+        address: custAddress.value,
+        items: items,
+        total: total
+    });
+
+    emailjs.send("service_ckwt5qn", "template_wslh0f7", {
+        customer_name: custName.value,
+        phone: custPhone.value,
+        reply_to: custEmail.value,   // <-- IMPORTANT
+        address: custAddress.value,
+        items: items,
+        total: total
+    })
+
+        .then(res => {
+            console.log("SUCCESS:", res);
+
+            alert("Order placed!");
+
+            window.open(`https://wa.me/919452737817?text=Thanks for ordering. Please send payment screenshot with your name.`);
+
+        })
+        .catch(err => {
+            console.log("EMAIL ERROR FULL:", err);
+            alert("Email failed – check console");
+        });
+}
+
+
+
+
+
+
+
+//---------------auto whatapp message-------------
+
+function sendWhatsApp(name, total) {
+
+    const msg = `Hi ${name}, thanks for ordering from Shudh India Catering.
+
+Total: ₹${total}
+
+Please send your UPI payment screenshot WITH YOUR NAME to this WhatsApp number.
+
+We will confirm shortly.`;
+
+    window.open(`https://wa.me/919452737817?text=${encodeURIComponent(msg)}`, "_blank");
+}
+
+
+
+
+
+
+//--------checks if the customer details are filled---
+const inputs = ["custName", "custPhone", "custEmail", "custAddress"];
+
+inputs.forEach(id => {
+    document.getElementById(id).addEventListener("input", checkForm);
+});
+
+function checkForm() {
+
+    let filled = true;
+
+    inputs.forEach(id => {
+        if (!document.getElementById(id).value.trim()) filled = false;
+    });
+
+    const btn = document.getElementById("payBtn");
+
+    if (filled) {
+        btn.disabled = false;
+        btn.style.opacity = "1";
+    } else {
+        btn.disabled = true;
+        btn.style.opacity = "0.6";
+    }
+}

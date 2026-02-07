@@ -12,6 +12,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../css/menu.css">
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
 </head>
 
 <body>
@@ -64,7 +66,7 @@
                         <h3>The High Tea Classic</h3>
                         <p class="desc">Includes: 2 Coffees/Teas + 2 Grilled Sandwiches + Cookies.</p>
                         <div class="price-tag">₹499</div>
-                        <button class="btn-add" onclick="addToCart('The High Tea Classic', 499)">Add Combo</button>
+                        <button class="btn-add" onclick="addToCart('The High Tea Classic', 499,this)">Add Combo</button>
                     </div>
                 </div>
 
@@ -77,7 +79,7 @@
                         <h3>The Summer Refresher</h3>
                         <p class="desc">Includes: 4 Mocktails + Loaded Nachos + Peri Peri Fries.</p>
                         <div class="price-tag">₹899</div>
-                        <button class="btn-add" onclick="addToCart('The Summer Refresher', 899)">Add Combo</button>
+                        <button class="btn-add" onclick="addToCart('The Summer Refresher', 899,this)">Add Combo</button>
                     </div>
                 </div>
 
@@ -91,7 +93,7 @@
                         <h3>The Asian Feast</h3>
                         <p class="desc">Includes: 2 Ramen Bowls + 2 portions of Momos + 2 Boba Teas.</p>
                         <div class="price-tag">₹1299</div>
-                        <button class="btn-add" onclick="addToCart('The Asian Feast', 1299)">Add Combo</button>
+                        <button class="btn-add" onclick="addToCart('The Asian Feast', 1299,this)">Add Combo</button>
                     </div>
                 </div>
             </div>
@@ -117,7 +119,8 @@
                         <h3>Strawberry Basil Lemonade </h3>
                         <p class="desc">Fresh strawberries, lemon juice, basil leaves, sugar syrup, soda.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Strawberry Basil Lemonade', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Strawberry Basil Lemonade', 149,this)">Add to
+                            Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -129,7 +132,7 @@
                         <h3>Watermelon Mint Cooler</h3>
                         <p class="desc">Watermelon juice, mint, lime, simple syrup, sparkling water.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Watermelon mint cooler', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Watermelon mint cooler', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -141,7 +144,7 @@
                         <h3>Mango Mule (Non-Alcoholic)</h3>
                         <p class="desc">Mango puree, lime juice, ginger beer, mint.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Mango Mule', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Mango Mule', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -153,7 +156,7 @@
                         <h3>Pineapple Sunrise</h3>
                         <p class="desc">Pineapple juice, orange juice, splash of grenadine.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Pineapple sunrise', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Pineapple sunrise', 149,this)">Add to Menu</button>
                     </div>
                 </div>
             </div>
@@ -169,7 +172,7 @@
                         <h3>Virgin Mojito</h3>
                         <p class="desc">Lime, mint, sugar syrup, soda.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Virgin Mojito', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Virgin Mojito', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -181,7 +184,7 @@
                         <h3>Cucumber Lemon Fizz</h3>
                         <p class="desc">Cucumber juice, lemon, honey or sugar syrup, soda.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Cucumber lemon fizz', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Cucumber lemon fizz', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -193,7 +196,7 @@
                         <h3>Orange Ginger Spritz</h3>
                         <p class="desc">Orange juice, ginger ale, lime.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Orange Ginger Spritz', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Orange Ginger Spritz', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -205,7 +208,7 @@
                         <h3>Lavender Fizz</h3>
                         <p class="desc">Lavender syrup, lemon juice, soda.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Lavender Fizz', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Lavender Fizz', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -217,7 +220,7 @@
                         <h3>Rose Lemonade Spritz</h3>
                         <p class="desc">Lemonade, rose syrup, soda, dried rose petals.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Rose Lemonade Spritz', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Rose Lemonade Spritz', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -229,7 +232,7 @@
                         <h3>Virgin Piña Colada</h3>
                         <p class="desc">Pineapple juice, coconut milk/cream, crushed ice.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Virgin Piña Colada', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Virgin Piña Colada', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -241,7 +244,7 @@
                         <h3>Chocolate Mint Cooler</h3>
                         <p class="desc">Chocolate syrup, milk, mint essence, ice.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Chocolate Mint cooler', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Chocolate Mint cooler', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -253,7 +256,7 @@
                         <h3>Peach Iced Tea Spritzer</h3>
                         <p class="desc">Peach syrup, iced tea, lemon, soda.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Peach iced tea Spritzer', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Peach iced tea Spritzer', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -265,7 +268,7 @@
                         <h3>Hibiscus Cooler</h3>
                         <p class="desc">Hibiscus tea, lime, honey, soda.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Hibiscus cooler', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Hibiscus cooler', 149,this)">Add to Menu</button>
                     </div>
                 </div>
             </div>
@@ -276,7 +279,7 @@
                 <h2>Coffee & Boba Bar</h2>
                 <div class="gold-line"></div>
                 <p>High demand Boba teas and premium cold brews.</p>
-                
+
             </div>
 
             <div class="menu-grid">
@@ -289,7 +292,8 @@
                         <h3>Classic Milk Tea with Boba </h3>
                         <p class="desc">Authentic milk tea served with chewy tapioca pearls.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Classic milk tea with boba', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Classic milk tea with boba', 149,this)">Add to
+                            Menu</button>
                     </div>
                 </div>
 
@@ -302,7 +306,7 @@
                         <h3>Taro Milk Tea</h3>
                         <p class="desc">Creamy and sweet purple taro flavor.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Taro Milk Tea', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Taro Milk Tea', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -314,7 +318,7 @@
                         <h3>Fruit Green Tea (Mango / Lychee)</h3>
                         <p class="desc">Refreshing green tea base with popping boba.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Fruit Green Tea', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Fruit Green Tea', 149,this)">Add to Menu</button>
                     </div>
                 </div>
 
@@ -327,7 +331,7 @@
                         <h3>Strawberry Matcha Latte </h3>
                         <p class="desc">Layers of strawberry puree and premium matcha milk.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Strawberry Matcha Latte', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Strawberry Matcha Latte', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -339,7 +343,7 @@
                         <h3>Iced Matcha Latte</h3>
                         <p class="desc">Classic premium Japanese matcha with milk and ice.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Iced matcha Latte', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Iced matcha Latte', 149,this)">Add to Menu</button>
                     </div>
                 </div>
 
@@ -352,7 +356,7 @@
                         <h3>Classic Cold Coffee</h3>
                         <p class="desc">Rich coffee blend served chilled.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Classic cold coffe', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Classic cold coffe', 149,this)">Add to Menu</button>
                     </div>
                 </div>
 
@@ -365,7 +369,8 @@
                         <h3>Vanilla / Caramel Iced Latte</h3>
                         <p class="desc">Espresso with milk and your choice of syrup.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Vanilaa / Caramel Iced Latte', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Vanilaa / Caramel Iced Latte', 149,this)">Add to
+                            Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -377,7 +382,7 @@
                         <h3>Mocha Iced Coffee</h3>
                         <p class="desc">The perfect blend of coffee and chocolate.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Mocha iced coffee', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Mocha iced coffee', 149,this)">Add to Menu</button>
                     </div>
                 </div>
             </div>
@@ -400,7 +405,8 @@
                         <h3>Paneer Tikka Grilled Sandwich</h3>
                         <p class="desc">Spicy paneer filling grilled to perfection.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Paneer tikka grilled Sandwich', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Paneer tikka grilled Sandwich', 149,this)">Add to
+                            Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -412,7 +418,8 @@
                         <h3>Creamy Mushroom Sandwich</h3>
                         <p class="desc">Earthy mushrooms in a rich creamy sauce.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Creamy mushroom Sandwich', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Creamy mushroom Sandwich', 149,this)">Add to
+                            Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -424,7 +431,8 @@
                         <h3>Cheesy Corn & Jalapeno Sandwich</h3>
                         <p class="desc">Sweet corn and spicy jalapenos with melted cheese.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Cheesy corn & Jalapeno Sandwich', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Cheesy corn & Jalapeno Sandwich', 149,this)">Add to
+                            Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -436,7 +444,7 @@
                         <h3>Masala Cheese Toast</h3>
                         <p class="desc">Indian street style toast loaded with spices and cheese.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Masala cheese toast', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Masala cheese toast', 149,this)">Add to Menu</button>
                     </div>
                 </div>
 
@@ -449,7 +457,7 @@
                         <h3>Loaded Aloo Tikki Wrap</h3>
                         <p class="desc">Classic potato patty wrap with sauces.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Loaded Aloo Tikki wrap', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Loaded Aloo Tikki wrap', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -461,7 +469,7 @@
                         <h3>Paneer Tikka Wrap</h3>
                         <p class="desc">Marinated paneer chunks wrapped with veggies.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Paneer tikka wrap', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Paneer tikka wrap', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -473,7 +481,7 @@
                         <h3>Chipotle Veggie Wrap</h3>
                         <p class="desc">Spicy chipotle dressing with crunchy vegetables.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Chipotle Veggie wrap', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Chipotle Veggie wrap', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -485,7 +493,7 @@
                         <h3>Falafel Wrap</h3>
                         <p class="desc">Mediterranean style wrap with hummus.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Falafel wrap', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Falafel wrap', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -497,7 +505,7 @@
                         <h3>Taco Wrap (Veg)</h3>
                         <p class="desc">Mexican style fold with beans and salsa.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Taco wrap veg', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Taco wrap veg', 149,this)">Add to Menu</button>
                     </div>
                 </div>
 
@@ -510,7 +518,8 @@
                         <h3>Nachos with Cheese & Jalapeno</h3>
                         <p class="desc">Crispy tortilla chips loaded with cheese sauce.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Nachos with cheese & Jalapeno', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Nachos with cheese & Jalapeno', 149,this)">Add to
+                            Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -522,7 +531,7 @@
                         <h3>Chilli Potato</h3>
                         <p class="desc">Crispy potatoes tossed in sweet and spicy sauce.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Chilli potato', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Chilli potato', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -534,7 +543,7 @@
                         <h3>Loaded Cheese Fries</h3>
                         <p class="desc">Fries topped with liquid cheese and herbs.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('loaded cheese fries', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('loaded cheese fries', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -546,7 +555,7 @@
                         <h3>Peri Peri Fries</h3>
                         <p class="desc">Spicy dusted crispy fries.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Peri Peri Fries', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Peri Peri Fries', 149,this)">Add to Menu</button>
                     </div>
                 </div>
 
@@ -559,7 +568,7 @@
                         <h3>Smash Veg Burger</h3>
                         <p class="desc">Crispy veg patty smashed with cheese.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Smash veg burger', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Smash veg burger', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -571,7 +580,7 @@
                         <h3>Korean Style Veg Burger</h3>
                         <p class="desc">Burger with spicy gochujang glaze.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('korean style veg burger', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('korean style veg burger', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -583,7 +592,8 @@
                         <h3>Cheesy Aloo Tikki Burger</h3>
                         <p class="desc">Desi style potato patty with extra cheese.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Chessy Aloo Tikki burger', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Chessy Aloo Tikki burger', 149,this)">Add to
+                            Menu</button>
                     </div>
                 </div>
 
@@ -596,7 +606,7 @@
                         <h3> Red Sauce Pasta</h3>
                         <p class="desc">tangy Arrabbiata pasta.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Red sauce pasta', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Red sauce pasta', 149,this)">Add to Menu</button>
                     </div>
                 </div>
 
@@ -609,7 +619,7 @@
                         <h3>White Sauce Pasta</h3>
                         <p class="desc">Creamy Alfredo pasta.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('White sauce pasta', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('White sauce pasta', 149,this)">Add to Menu</button>
                     </div>
                 </div>
             </div>
@@ -632,7 +642,7 @@
                         <h3>Veg / Paneer Momos</h3>
                         <p class="desc">Steamed or fried dumplings served with spicy dip.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Veg / Paneer Momos', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Veg / Paneer Momos', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -644,7 +654,7 @@
                         <h3>Chili Garlic Noodles</h3>
                         <p class="desc">Wok-tossed noodles with burnt garlic and chili.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Chilli Garlic Noodles', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Chilli Garlic Noodles', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -656,7 +666,7 @@
                         <h3>Korean Noodles</h3>
                         <p class="desc">Spicy ramen-style noodles.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Korean Noodles', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Korean Noodles', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -668,7 +678,8 @@
                         <h3>Veg Soupy Thukpa Noodles</h3>
                         <p class="desc">Comforting Himalayan noodle soup with veggies.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Veg soupy thukpa noodles', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Veg soupy thukpa noodles', 149,this)">Add to
+                            Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -680,7 +691,7 @@
                         <h3>Maggie (Cheese/Masala)</h3>
                         <p class="desc">The classic comfort food prepared your way.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Masala / Cheese Maggie', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Masala / Cheese Maggie', 149,this)">Add to Menu</button>
                     </div>
                 </div>
 
@@ -693,7 +704,7 @@
                         <h3>Cheese Pav Bhaji</h3>
                         <p class="desc">Buttery vegetable mash with cheese and soft pav.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Cheese Pav Bhaji', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Cheese Pav Bhaji', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -705,7 +716,7 @@
                         <h3>Paneer Chole Bhature</h3>
                         <p class="desc">Spicy chickpeas served with fluffy fried bread.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Paneer Chole Bhature', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Paneer Chole Bhature', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -717,7 +728,7 @@
                         <h3>Dahi Papdi Chaat</h3>
                         <p class="desc">Crispy wafers topped with yogurt and chutneys.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Dahi Papdi Chaat', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Dahi Papdi Chaat', 149,this)">Add to Menu</button>
                     </div>
                 </div>
 
@@ -730,7 +741,7 @@
                         <h3>Manchurian Rice/Noodle Bowl </h3>
                         <p class="desc">Fried veg balls in spicy sauce served with rice or noodles.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Manchurian Rice/Noodles', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Manchurian Rice/Noodles', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -742,7 +753,8 @@
                         <h3>Chilli Paneer Noodles/Rice Bowl</h3>
                         <p class="desc">Spicy cottage cheese cubes with your choice of base.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Chille Paneer Noodles/Rice Bowl', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Chille Paneer Noodles/Rice Bowl', 149,this)">Add to
+                            Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -754,7 +766,7 @@
                         <h3>Teriyaki Veg Rice Bowl</h3>
                         <p class="desc">Sweet and savory teriyaki sauce with stir-fry veggies.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Teriyaki Veg Rice bowl', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Teriyaki Veg Rice bowl', 149,this)">Add to Menu</button>
                     </div>
                 </div>
 
@@ -767,7 +779,7 @@
                         <h3>Burrito Bowl</h3>
                         <p class="desc">Rice, beans, veggies, salsa, and cheese.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Burrito bowl', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Burrito bowl', 149,this)">Add to Menu</button>
                     </div>
                 </div>
                 <div class="menu-card">
@@ -779,7 +791,7 @@
                         <h3>Breakfast Burrito (Veg)</h3>
                         <p class="desc">Hearty wrap with beans, cheese and veggies.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Breakfast Burrito veg', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Breakfast Burrito veg', 149,this)">Add to Menu</button>
                     </div>
                 </div>
 
@@ -792,7 +804,7 @@
                         <h3>Chaap</h3>
                         <p class="desc">Tandoori soy chaap delicacy.</p>
                         <div class="price-tag">₹149</div>
-    <button class="btn-add" onclick="addToCart('Chaap', 149)">Add to Menu</button>
+                        <button class="btn-add" onclick="addToCart('Chaap', 149,this)">Add to Menu</button>
                     </div>
                 </div>
             </div>
@@ -806,10 +818,46 @@
         <br>
         <a href="../index.html" class="back-link">Return to Home</a>
     </footer>
-    
+
 
     <script src="../js/menu.js"></script>
-    
+
+
+
+    <div class="floating-cart-btn" onclick="openCart()">
+        🛒 <span id="cartCount" class="cart-count">0</span>
+    </div>
+
+    <div class="cart-modal" id="cartModal" onclick="closeCart(event)">
+
+        <div class="cart-content">
+
+            <h3>Your Order</h3>
+
+            <div id="cartItems"></div>
+
+            <div>Total: ₹<span id="totalPrice">0</span></div>
+
+            <button onclick="showForm()">Checkout</button>
+
+            <div class="user-details-form" id="userForm">
+                <input id="custName" placeholder="Name">
+                <input id="custPhone" placeholder="Phone">
+                <input id="custEmail" placeholder="Email">
+                <input id="custAddress" placeholder="Address">
+
+                <button id="payBtn" onclick="showQR()" disabled>Proceed to Pay</button>
+
+            </div>
+
+            <div id="qrSection" style="display:none">
+                <img src="../qr_code/qr.jpeg" width="200">
+                <button onclick="placeOrder()">Shared the Payment ScreenShot</button>
+            </div>
+
+        </div>
+    </div>
+
 </body>
 
 </html>
