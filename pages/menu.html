@@ -12,7 +12,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../css/menu.css">
-   
+
 
 </head>
 
@@ -838,7 +838,7 @@
     </footer>
 
 
-    
+
 
 
 
@@ -869,6 +869,33 @@
                 <input id="custEmail" placeholder="Email">
                 <input id="custAddress" placeholder="Address">
 
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-calendar-alt"></i> Type of Event
+                    </label>
+
+                    <select id="eventType" class="styled-select">
+                        <option value="">Select event type</option>
+                        <option value="Corporate Event">Corporate Event</option>
+                        <option value="Wedding">Wedding</option>
+                        <option value="Birthday Party">Birthday Party</option>
+                        <option value="College Event">College Event</option>
+                        <option value="House Party">House Party</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-clock"></i> Event Date
+                    </label>
+
+                    <input type="date" id="eventDate" class="styled-select">
+                </div>
+
+
+
                 <button id="payBtn" onclick="showQR()" disabled>Proceed to Pay</button>
 
             </div>
@@ -877,7 +904,8 @@
                 <img src="../qr_code/QR_code.png" width="200">
                 <input type="file" id="paymentImage" accept="image/*" hidden>
 
-                <button class="share-btn" onclick="selectScreenshot()">Share the Payment Screenshot</button>
+                <button class="share-btn" onclick="selectScreenshot()">Share the Payment Screenshot (Max Size: 1
+                    MB)</button>
 
 
             </div>
@@ -885,41 +913,41 @@
         </div>
     </div>
 
-<div id="successModal" class="success-modal">
-  <div class="success-box">
-    <h2>🎉 Order Placed!</h2>
-    <p>Your order ID:</p>
-    <h3 id="successOrderId"></h3>
+    <div id="successModal" class="success-modal">
+        <div class="success-box">
+            <h2>🎉 Order Placed!</h2>
+            <p>Your order ID:</p>
+            <h3 id="successOrderId"></h3>
 
-    <p>We’ve received your order.<br>
-    Our team will contact you shortly.</p>
+            <p>We’ve received your order.<br>
+                Our team will contact you shortly.</p>
 
-    <button onclick="closeSuccess()">Continue Browsing</button>
-  </div>
-</div>
-
-
-   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-<script>
- const firebaseConfig = {
-   apiKey: "AIzaSyBt8S-hhNLDOOCP9wBqzfX2RqE4lh9AODs",
-   authDomain: "shudh-india.firebaseapp.com",
-   projectId: "shudh-india",
-   storageBucket: "shudh-india.firebasestorage.app",
-   messagingSenderId: "1065730988145",
-   appId: "1:1065730988145:web:733d8f2c1b0a0e426663d0"
- };
-
- firebase.initializeApp(firebaseConfig);
-</script>
+            <button onclick="closeSuccess()">Continue Browsing</button>
+        </div>
+    </div>
 
 
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBt8S-hhNLDOOCP9wBqzfX2RqE4lh9AODs",
+            authDomain: "shudh-india.firebaseapp.com",
+            projectId: "shudh-india",
+            storageBucket: "shudh-india.firebasestorage.app",
+            messagingSenderId: "1065730988145",
+            appId: "1:1065730988145:web:733d8f2c1b0a0e426663d0"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+    </script>
 
 
 
-<script src="../js/menu.js"></script>
+
+
+    <script src="../js/menu.js"></script>
 </body>
 
 </html>

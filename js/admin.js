@@ -103,7 +103,8 @@ function loadOrders() {
                             <div class="card-header">
                                 <div>
                                     <div class="customer-name">${o.name || 'Guest'}</div>
-                                    <div class="order-id">ID: ${id.substring(0, 8)}...</div>
+                                    <div class="order-id">ID: ${o.orderId || "N/A"}</div>
+
                                 </div>
                                 <span class="status-badge ${isDone ? 'done' : 'pending'}">
                                     ${o.status || 'PENDING'}
@@ -115,6 +116,11 @@ function loadOrders() {
                                 <div class="info-row"><i class="fas fa-envelope"></i> ${o.email || 'N/A'}</div>
                                 <div class="info-row"><i class="fas fa-map-marker-alt"></i> ${o.address || 'Location not set'}</div>
                                 
+                                <div class="info-row">
+  <i class="fas fa-calendar-alt"></i>
+  ${o.eventType || "Event"} on ${o.eventDate || "N/A"}
+</div>
+
                                 <div class="items-box">
                                     <span class="items-title">Order Contents</span>
                                     ${itemsList}

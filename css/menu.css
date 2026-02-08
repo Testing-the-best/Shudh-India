@@ -696,3 +696,46 @@ body.cart-open{
  font-weight:600;
  cursor:pointer;
 }
+
+
+
+
+
+
+
+
+/* --------event type form------ */
+.form-group {
+    margin-top: 18px;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2a0a0a;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.form-label i {
+    color: #c5a059;
+    margin-right: 6px;
+}
+
+.styled-select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1.5px solid #e2d6c2;
+    font-size: 14px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.styled-select:focus {
+    outline: none;
+    border-color: #c5a059;
+    box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.15);
+}
+

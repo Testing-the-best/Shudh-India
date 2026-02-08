@@ -70,6 +70,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    updateCart();
+
+    // 🔒 Prevent past date selection
+    const eventDateInput = document.getElementById("eventDate");
+    if (eventDateInput) {
+        const today = new Date().toISOString().split("T")[0];
+        eventDateInput.setAttribute("min", today);
+    }
+});
+
 
 
 
@@ -175,6 +186,19 @@ function showForm() {
 
 
 function showQR() {
+    const eventType = document.getElementById("eventType").value;
+    const eventDate = document.getElementById("eventDate").value;
+
+    if (!eventType) {
+        alert("Please select the event type");
+        return;
+    }
+
+    if (!eventDate) {
+        alert("Please select the event date");
+        return;
+    }
+
 
     const phoneValid = /^[6-9]\d{9}$/.test(custPhone.value);
     const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(custEmail.value);
@@ -253,7 +277,7 @@ function placeOrder() {
             document.getElementById("successOrderId").innerText = orderId;
             document.getElementById("successModal").style.display = "flex";
 
-            
+
         })
         .catch(() => {
             alert("Order failed");
@@ -283,6 +307,9 @@ const inputs = ["custName", "custPhone", "custEmail", "custAddress"];
 inputs.forEach(id => {
     document.getElementById(id).addEventListener("input", checkForm);
 });
+document.getElementById("eventType").addEventListener("change", checkForm);
+document.getElementById("eventDate").addEventListener("change", checkForm);
+
 
 function checkForm() {
 
@@ -303,6 +330,19 @@ function checkForm() {
         btn.disabled = true;
         btn.style.opacity = "0.6";
     }
+
+    const eventType = document.getElementById("eventType").value;
+    const eventDate = document.getElementById("eventDate").value;
+
+    if (name && phoneValid && emailValid && address && eventType && eventDate && cart.length > 0) {
+        btn.disabled = false;
+        btn.style.opacity = "1";
+    } else {
+        btn.disabled = true;
+        btn.style.opacity = "0.6";
+    }
+
+
 }
 
 
@@ -370,55 +410,58 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-function selectScreenshot(){
- document.getElementById("paymentImage").click();
+function selectScreenshot() {
+    document.getElementById("paymentImage").click();
 }
 
 document.getElementById("paymentImage").addEventListener("change", uploadScreenshot);
 
-function uploadScreenshot(e){
+function uploadScreenshot(e) {
 
- if(cart.length===0){
-   alert("Cart empty");
-   return;
- }
+    if (cart.length === 0) {
+        alert("Cart empty");
+        return;
+    }
 
- const file = e.target.files[0];
- if(!file) return;
+    const file = e.target.files[0];
+    if (!file) return;
 
- const reader = new FileReader();
+    const reader = new FileReader();
 
- reader.onload = function(){
+    reader.onload = function () {
 
-   const base64Image = reader.result;
-   const total = totalPrice.innerText;
-   const orderId = "ORD"+Date.now();
+        const base64Image = reader.result;
+        const total = totalPrice.innerText;
+        const orderId = "ORD" + Date.now();
 
-   db.collection("orders").add({
-     orderId: orderId,
-     name: custName.value,
-     phone: custPhone.value,
-     email: custEmail.value,
-     address: custAddress.value,
-     total: total,
-     items: cart,
-     paymentImage: base64Image,
-     status: "pending",
-     createdAt: firebase.firestore.FieldValue.serverTimestamp()
-   })
-   .then(()=>{
+        db.collection("orders").add({
+            orderId: orderId,
+            name: custName.value,
+            phone: custPhone.value,
+            email: custEmail.value,
+            address: custAddress.value,
+            total: total,
+            items: cart,
+            paymentImage: base64Image,
+            status: "pending",
+            eventType: document.getElementById("eventType").value,
+            eventDate: document.getElementById("eventDate").value,
 
-     document.getElementById("successOrderId").innerText = orderId;
-     document.getElementById("successModal").style.display="flex";
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        })
+            .then(() => {
 
-     cart=[];
-     localStorage.removeItem("cart");
-     updateCart();
+                document.getElementById("successOrderId").innerText = orderId;
+                document.getElementById("successModal").style.display = "flex";
 
-   
-   });
- };
+                cart = [];
+                localStorage.removeItem("cart");
+                updateCart();
 
- reader.readAsDataURL(file);
+
+            });
+    };
+
+    reader.readAsDataURL(file);
 }
 
