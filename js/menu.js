@@ -190,14 +190,16 @@ function showQR() {
     const eventDate = document.getElementById("eventDate").value;
 
     if (!eventType) {
-        alert("Please select the event type");
+        alert("Please select event type");
         return;
     }
 
     if (!eventDate) {
-        alert("Please select the event date");
+        alert("Please select event date");
         return;
     }
+
+
 
 
     const phoneValid = /^[6-9]\d{9}$/.test(custPhone.value);
@@ -317,77 +319,26 @@ function checkForm() {
     const phone = custPhone.value.trim();
     const email = custEmail.value.trim();
     const address = custAddress.value.trim();
+    const eventType = document.getElementById("eventType").value;
+    const eventDate = document.getElementById("eventDate").value;
 
-    const phoneValid = /^[6-9]\d{9}$/.test(phone);   // Indian mobile
+    const phoneValid = /^[6-9]\d{9}$/.test(phone);
     const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     const btn = document.getElementById("payBtn");
 
-    if (name && phoneValid && emailValid && address && cart.length > 0) {
-        btn.disabled = false;
-        btn.style.opacity = "1";
-    } else {
-        btn.disabled = true;
-        btn.style.opacity = "0.6";
-    }
+    const isValid =
+        name &&
+        phoneValid &&
+        emailValid &&
+        address &&
+        eventType &&
+        eventDate &&
+        cart.length > 0;
 
-    const eventType = document.getElementById("eventType").value;
-    const eventDate = document.getElementById("eventDate").value;
-
-    if (name && phoneValid && emailValid && address && eventType && eventDate && cart.length > 0) {
-        btn.disabled = false;
-        btn.style.opacity = "1";
-    } else {
-        btn.disabled = true;
-        btn.style.opacity = "0.6";
-    }
-
-
+    btn.disabled = !isValid;
+    btn.style.opacity = isValid ? "1" : "0.6";
 }
-
-
-
-
-
-
-
-
-window.sharePayment = function () {
-
-    if (!custName.value || !custPhone.value || !custEmail.value) {
-        alert("Please fill all details");
-        return;
-    }
-
-    if (cart.length === 0) {
-        alert("Cart is empty");
-        return;
-    }
-
-    let total = document.getElementById("totalPrice").innerText;
-    let items = cart;
-
-    // 🔥 SAVE TO FIREBASE HERE
-    db.collection("orders").add({
-        name: custName.value,
-        phone: custPhone.value,
-        email: custEmail.value,
-        address: custAddress.value,
-        total: total,
-        items: items,
-        status: "pending",
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-
-    // Show success modal
-    document.getElementById("successModal").style.display = "flex";
-
-    // Clear cart
-    cart = [];
-    localStorage.removeItem("cart");
-    updateCart();
-};
-
 
 
 
