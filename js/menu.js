@@ -186,24 +186,13 @@ function showForm() {
 
 
 function showQR() {
+    const phone = custPhone.value.trim();
+    const email = custEmail.value.trim();
     const eventType = document.getElementById("eventType").value;
     const eventDate = document.getElementById("eventDate").value;
 
-    if (!eventType) {
-        alert("Please select event type");
-        return;
-    }
-
-    if (!eventDate) {
-        alert("Please select event date");
-        return;
-    }
-
-
-
-
-    const phoneValid = /^[6-9]\d{9}$/.test(custPhone.value);
-    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(custEmail.value);
+    const phoneValid = /^[6-9]\d{9}$/.test(phone);
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     if (cart.length === 0) {
         alert("Cart is empty");
@@ -216,12 +205,22 @@ function showQR() {
     }
 
     if (!phoneValid) {
-        alert("Please enter valid 10-digit mobile number");
+        alert("Please enter a valid 10-digit mobile number");
         return;
     }
 
     if (!emailValid) {
-        alert("Please enter valid email address");
+        alert("Please enter a valid email address");
+        return;
+    }
+
+    if (!eventType) {
+        alert("Please select event type");
+        return;
+    }
+
+    if (!eventDate) {
+        alert("Please select event date");
         return;
     }
 
@@ -263,7 +262,8 @@ function placeOrder() {
     emailjs.send("service_ckwt5qn", "template_wslh0f7", {
         order_id: orderId,
         customer_name: custName.value,
-        phone: custPhone.value,
+        phone: "+91" + custPhone.value,
+
         reply_to: custEmail.value,
         address: custAddress.value,
         items: items,
@@ -322,7 +322,12 @@ function checkForm() {
     const eventType = document.getElementById("eventType").value;
     const eventDate = document.getElementById("eventDate").value;
 
+
     const phoneValid = /^[6-9]\d{9}$/.test(phone);
+
+
+
+
     const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
     const btn = document.getElementById("payBtn");
@@ -370,12 +375,20 @@ document.getElementById("paymentImage").addEventListener("change", uploadScreens
 function uploadScreenshot(e) {
 
     if (cart.length === 0) {
-        alert("Cart empty");
+        showUploadToast("Cart is empty", "error");
         return;
     }
 
     const file = e.target.files[0];
     if (!file) return;
+
+    // 🚫 File size limit (2MB)
+    if (file.size > 2 * 1024 * 1024) {
+        showUploadToast("Upload failed – use smaller image", "error");
+        return;
+    }
+
+    showUploadToast("Uploading payment screenshot…");
 
     const reader = new FileReader();
 
@@ -383,12 +396,12 @@ function uploadScreenshot(e) {
 
         const base64Image = reader.result;
         const total = totalPrice.innerText;
-        const orderId = "ORD" + Date.now();
+        const orderId = generateOrderId();
 
         db.collection("orders").add({
             orderId: orderId,
             name: custName.value,
-            phone: custPhone.value,
+            phone: "+91" + custPhone.value,
             email: custEmail.value,
             address: custAddress.value,
             total: total,
@@ -397,10 +410,10 @@ function uploadScreenshot(e) {
             status: "pending",
             eventType: document.getElementById("eventType").value,
             eventDate: document.getElementById("eventDate").value,
-
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
         })
             .then(() => {
+                showUploadToast("Upload completed ✔", "success");
 
                 document.getElementById("successOrderId").innerText = orderId;
                 document.getElementById("successModal").style.display = "flex";
@@ -408,11 +421,23 @@ function uploadScreenshot(e) {
                 cart = [];
                 localStorage.removeItem("cart");
                 updateCart();
-
-
+            })
+            .catch(() => {
+                showUploadToast("Upload failed – try again", "error");
             });
     };
 
     reader.readAsDataURL(file);
 }
 
+
+
+function showUploadToast(message, type = "success") {
+    const toast = document.getElementById("uploadToast");
+    toast.textContent = message;
+    toast.className = `upload-toast show ${type}`;
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2500);
+}

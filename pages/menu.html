@@ -865,7 +865,14 @@
 
             <div class="user-details-form" id="userForm">
                 <input id="custName" placeholder="Name">
-                <input id="custPhone" placeholder="Phone">
+
+
+                <div class="phone-input-wrapper">
+                    <span class="country-code">+91</span>
+                    <input id="custPhone" type="tel" placeholder="+91 XXXXX XXXXX" maxlength="10" />
+                </div>
+
+
                 <input id="custEmail" placeholder="Email">
                 <input id="custAddress" placeholder="Address">
 
@@ -911,6 +918,8 @@
             </div>
 
         </div>
+        <div id="uploadToast" class="upload-toast"></div>
+
     </div>
 
     <div id="successModal" class="success-modal">
@@ -948,6 +957,10 @@
 
 
     <script src="../js/menu.js"></script>
+
+
+    
+
 </body>
 
 </html>
