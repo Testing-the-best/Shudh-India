@@ -418,6 +418,9 @@ function uploadScreenshot(e) {
                 document.getElementById("successOrderId").innerText = orderId;
                 document.getElementById("successModal").style.display = "flex";
 
+                // 2. Hide the Checkout Form explicitly
+                document.getElementById("userForm").style.display = "none";
+
                 cart = [];
                 localStorage.removeItem("cart");
                 updateCart();
