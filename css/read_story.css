@@ -524,6 +524,7 @@ footer {
     font-weight: 600;
     transition: 0.3s;
     text-decoration: none; /* If you make them links later */
+    margin-bottom: 10px;
 }
 
 .team-card:hover .contact-pill {
