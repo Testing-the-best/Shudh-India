@@ -636,8 +636,9 @@ footer {
     font-weight: 700;
 }
 
+/* --- SLIDER CONTAINER --- */
 .logo-slider {
-    height: 60px;
+    height: 140px; /* CHANGED: Increased from 60px to fit Icon + Text */
     margin: auto;
     overflow: hidden;
     position: relative;
@@ -646,9 +647,11 @@ footer {
     align-items: center;
 }
 
+/* --- GRADIENT FADE (Optional - Adjust color to match your background) --- */
 .logo-slider::before,
 .logo-slider::after {
-    background: linear-gradient(to right, #f4f4f4 0%, rgba(255, 255, 255, 0) 100%);
+    /* If your background is dark maroon (#2A0A0A), change #f4f4f4 to #2A0A0A below */
+    background: linear-gradient(to right, #2A0A0A 0%, rgba(42, 10, 10, 0) 100%);
     content: "";
     height: 100%;
     position: absolute;
@@ -667,40 +670,79 @@ footer {
     top: 0;
 }
 
+/* --- THE TRACK (Animation) --- */
 .logo-track {
     display: flex;
-    width: calc(200px * 10); /* Width of slide * number of slides */
+    width: calc(200px * 10); /* 200px slide width * 10 total slides */
     animation: scroll 20s linear infinite;
 }
 
+/* --- INDIVIDUAL SLIDE --- */
 .slide {
-    height: 60px;
+    height: 140px; /* Match slider height */
     width: 200px;
     display: flex;
+    flex-direction: column; /* CHANGED: Stacks Icon on top of Text */
     align-items: center;
     justify-content: center;
-    padding: 0 30px;
+    padding: 0 15px;
+    gap: 15px; /* Space between icon and text */
 }
 
-.slide img {
-    max-width: 100%;
-    max-height: 100%;
-    filter: grayscale(100%); /* Makes logos black/white for corporate look */
-    opacity: 0.6;
-    transition: 0.3s;
+/* --- ICON STYLING --- */
+.slide i {
+    font-size: 2.5rem; /* Make icon bigger */
+    color: #C5A059;    /* Gold color */
+    transition: transform 0.3s ease;
 }
 
-.slide img:hover {
-    filter: grayscale(0%); /* Color on hover */
-    opacity: 1;
+/* --- TEXT STYLING --- */
+.slide span {
+    color: #fff;       /* White text */
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
 }
 
+/* --- HOVER EFFECT (Optional) --- */
+.slide:hover i {
+    transform: scale(1.2); /* Icon pops up slightly on hover */
+    color: #fff;
+}
+
+/* --- ANIMATION KEYFRAMES --- */
 @keyframes scroll {
     0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-200px * 5)); } /* Move by half the total width */
+    100% { transform: translateX(calc(-200px * 5)); } /* Moves exactly 5 slides to loop seamlessly */
 }
 
 
+/* --- ICON STYLING --- */
+.slide i {
+    font-size: 2.5rem;
+    color: #C5A059;    /* Gold icons look good on white too */
+    margin-bottom: 10px;
+    transition: transform 0.3s ease;
+}
 
-
-
+/* --- TEXT STYLING (Changed to Dark) --- */
+.slide span {
+    color: #333;       /* CHANGED: Dark Grey text so it's visible */
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;  /* Bold makes it easier to read */
+}
+.logo-slider::before,
+.logo-slider::after {
+    /* CHANGED: Gradient starts at White (#fff) to match your background */
+    background: linear-gradient(to right, #fff 0%, rgba(255, 255, 255, 0) 100%);
+    content: "";
+    height: 100%;
+    position: absolute;
+    width: 100px;
+    z-index: 2;
+}
