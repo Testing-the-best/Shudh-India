@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Order | Shudh India</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/menu.css"> <link rel="stylesheet" href="../css/track.css"> </head>
+<body>
+
+    <nav class="tracker-nav">
+        <a href="../index.html" style="text-decoration: none;"><div class="nav-brand">Shudh India</div></a>
+        <a href="../index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Menu</a>
+    </nav>
+
+    <div class="tracker-wrapper">
+        <div class="tracker-header">
+            <h1>Track Your Order</h1>
+            <p>Enter your phone number to see the status of your catering orders.</p>
+        </div>
+
+        <div class="search-section">
+            <div class="input-group">
+                <span class="prefix">+91</span>
+                <input type="tel" id="phoneInput" placeholder="Enter Phone Number" maxlength="10">
+            </div>
+            <button onclick="fetchOrders()" class="track-btn">Check Status</button>
+        </div>
+
+        <div id="loader" class="loader"></div>
+
+        <div id="ordersList" class="orders-list"></div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <script src="../js/track.js"></script>
+</body>
+</html>
