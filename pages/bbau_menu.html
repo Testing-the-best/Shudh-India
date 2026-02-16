@@ -13,321 +13,7 @@
 
     <link rel="icon" type="image/png" href="../favicon.png">
 
-    <style>
-        :root {
-            --primary-dark: #2A0A0A;
-            --gold: #C5A059;
-            --bg-color: #f8f5f0;
-            --text-dark: #2c2c2c;
-            --text-light: #777;
-            --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            padding-top: 70px;
-            overflow-x: hidden;
-        }
-
-        /* page loading */
-        /* --- CUSTOM PAGE LOADER --- */
-        .page-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #2A0A0A;
-            /* Brand Dark Maroon */
-            z-index: 99999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Class to hide the loader */
-        .page-loader.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            /* Allows clicking through after it fades */
-        }
-
-        /* Container for the logo and ring */
-        .loader-content {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* The Spinning Gold Ring */
-        .spinner-ring {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 3px solid transparent;
-            border-top-color: #C5A059;
-            /* Brand Gold */
-            border-right-color: #C5A059;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        /* The Logo inside */
-        .loader-logo {
-            width: 70px;
-            /* Slightly smaller than ring */
-            height: 70px;
-            border-radius: 50%;
-            object-fit: cover;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .loader-text {
-            margin-top: 20px;
-            color: #C5A059;
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 0.6;
-                transform: scale(0.95);
-            }
-
-            50% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-
-        /* --- Header --- */
-        header {
-            background: var(--primary-dark);
-            color: white;
-            padding: 0 20px;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            
-        }
-
-        header .brand {
-            font-family: 'Playfair Display', serif;
-            font-size: 26px;
-            color: var(--gold);
-            letter-spacing: 1px;
-            text-align: center;
-            
-        }
-        header a{
-            text-decoration: none;
-        }
-
-        /* --- Main Banner with Image Background --- */
-        .university-banner {
-            background: linear-gradient(rgba(42, 10, 10, 0.85), rgba(42, 10, 10, 0.95)),
-                url('https://images.unsplash.com/photo-1589302168068-964664d93dc0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover;
-            color: white;
-            text-align: center;
-            padding: 50px 20px;
-            border-bottom: 5px solid var(--gold);
-            height: 40vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .university-banner h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 34px;
-            margin-bottom: 12px;
-            color: var(--gold);
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .university-banner p {
-            font-size: 16px;
-            opacity: 0.95;
-            background: rgba(255, 255, 255, 0.1);
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-        }
-
-        /* --- Menu Container --- */
-        .menu-container {
-            max-width: 650px;
-            margin: -20px auto 0;
-            padding: 0 20px 40px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .category-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 26px;
-            color: var(--primary-dark);
-            margin: 35px 0 20px 0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .category-title i {
-            color: var(--gold);
-        }
-
-        .category-title::after {
-            content: '';
-            flex: 1;
-            height: 2px;
-            background: linear-gradient(to right, #e0d5c1, transparent);
-        }
-
-        /* --- Menu Items with Images --- */
-        .menu-item {
-            background: white;
-            border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 18px;
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border: 1px solid rgba(197, 160, 89, 0.2);
-        }
-
-        .menu-item:active {
-            transform: scale(0.98);
-        }
-
-        .item-img {
-            width: 85px;
-            height: 85px;
-            border-radius: 12px;
-            object-fit: cover;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .item-content {
-            flex: 1;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .item-details h3 {
-            font-size: 18px;
-            color: var(--primary-dark);
-            margin-bottom: 4px;
-            font-weight: 600;
-        }
-
-        .item-details p {
-            font-size: 13px;
-            color: var(--text-light);
-            line-height: 1.4;
-        }
-
-        .item-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary-dark);
-            background: #fdf9f1;
-            padding: 10px 15px;
-            border-radius: 12px;
-            border: 1px solid rgba(197, 160, 89, 0.3);
-            white-space: nowrap;
-        }
-
-        .badge {
-            display: inline-block;
-            background: #fff3cd;
-            color: #856404;
-            font-size: 11px;
-            padding: 4px 8px;
-            border-radius: 6px;
-            margin-top: 6px;
-            font-weight: 600;
-        }
-
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-light);
-            font-size: 14px;
-            background: white;
-            border-top: 1px solid #eee;
-        }
-
-        /* Mobile tweaks */
-        @media (max-width: 480px) {
-            .item-img {
-                width: 75px;
-                height: 75px;
-            }
-
-            .item-price {
-                padding: 8px 12px;
-                font-size: 16px;
-            }
-        }
-
-        /* FADE UP ANIMATION CSS */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+   
 </head>
 
 <body>
@@ -341,13 +27,20 @@
     </div>
 
     <header>
-        <a href="../index.html"><div class="brand"><i class="fas fa-utensils" style="margin-right:10px;"></i>Shudh India</div></a>
+        <a href="../index.html">
+            <div class="brand"><i class="fas fa-utensils" style="margin-right:10px;"></i>Shudh India</div>
+        </a>
     </header>
 
     <div class="university-banner">
         <h1 class="fade-up">BBAU Exclusive Menu</h1>
         <p class="fade-up" style="transition-delay: 0.1s;"><i class="fas fa-qrcode" style="margin-right:5px;"></i>
             Special pricing active for students</p>
+    </div>
+
+    <div class="floating-cart" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
     </div>
 
     <div class="menu-container">
@@ -362,7 +55,10 @@
                     <h3>Momos</h3>
                     <p>Hot steamed veg momos (8 pcs)</p>
                 </div>
-                <div class="item-price">₹80</div>
+                <div class="item-price-container">
+                    <div class="item-price">₹80</div>
+                    <button class="add-btn" onclick="addToCart('Momos', 80)">Add <i class="fas fa-plus"></i></button>
+                </div>
             </div>
         </div>
 
@@ -375,7 +71,11 @@
                     <p>Classic buttery street food</p>
                     <span class="badge">+ ₹20 for Cheese</span>
                 </div>
-                <div class="item-price">₹120</div>
+                <div class="item-price-container">
+                    <div class="item-price">₹120</div>
+                    <button class="add-btn" onclick="addToCart('Pav Bhaji', 120)">Add <i
+                            class="fas fa-plus"></i></button>
+                </div>
             </div>
         </div>
 
@@ -387,7 +87,11 @@
                     <h3>Crispy Fries</h3>
                     <p>Golden salted french fries</p>
                 </div>
-                <div class="item-price">₹60</div>
+                <div class="item-price-container">
+                    <div class="item-price">₹60</div>
+                    <button class="add-btn" onclick="addToCart('Crispy Fries', 60)">Add <i
+                            class="fas fa-plus"></i></button>
+                </div>
             </div>
         </div>
 
@@ -401,7 +105,11 @@
                     <h3>Red Sauce Pasta</h3>
                     <p>Tangy tomato & herb sauce</p>
                 </div>
-                <div class="item-price">₹80</div>
+                <div class="item-price-container">
+                    <div class="item-price">₹80</div>
+                    <button class="add-btn" onclick="addToCart('Red Sauce Pasta', 80)">Add <i
+                            class="fas fa-plus"></i></button>
+                </div>
             </div>
         </div>
 
@@ -413,7 +121,11 @@
                     <h3>White Sauce Pasta</h3>
                     <p>Creamy cheese sauce with veggies</p>
                 </div>
-                <div class="item-price">₹80</div>
+                <div class="item-price-container">
+                    <div class="item-price">₹80</div>
+                    <button class="add-btn" onclick="addToCart('White Sauce Pasta', 80)">Add <i
+                            class="fas fa-plus"></i></button>
+                </div>
             </div>
         </div>
 
@@ -425,7 +137,11 @@
                     <h3>Chilli Garlic Noodles</h3>
                     <p>Spicy wok-tossed noodles</p>
                 </div>
-                <div class="item-price">₹80</div>
+                <div class="item-price-container">
+                    <div class="item-price">₹80</div>
+                    <button class="add-btn" onclick="addToCart('Chilli Garlic Noodles', 80)">Add <i
+                            class="fas fa-plus"></i></button>
+                </div>
             </div>
         </div>
 
@@ -437,7 +153,11 @@
                     <h3>Classic Maggie</h3>
                     <p>Everyone's favorite comfort food</p>
                 </div>
-                <div class="item-price">₹60</div>
+                <div class="item-price-container">
+                    <div class="item-price">₹60</div>
+                    <button class="add-btn" onclick="addToCart('Classic Maggie', 60)">Add <i
+                            class="fas fa-plus"></i></button>
+                </div>
             </div>
         </div>
 
@@ -451,7 +171,11 @@
                     <h3>Chilli Paneer Noodles Bowl</h3>
                     <p>Spicy paneer chunks with veg noodles</p>
                 </div>
-                <div class="item-price">₹255</div>
+                <div class="item-price-container">
+                    <div class="item-price">₹255</div>
+                    <button class="add-btn" onclick="addToCart('Chilli Paneer Noodles Bowl', 255)">Add <i
+                            class="fas fa-plus"></i></button>
+                </div>
             </div>
         </div>
 
@@ -463,7 +187,11 @@
                     <h3>Chilli Paneer & Rice</h3>
                     <p>Spicy paneer chunks with fried rice</p>
                 </div>
-                <div class="item-price">₹255</div>
+                <div class="item-price-container">
+                    <div class="item-price">₹255</div>
+                    <button class="add-btn" onclick="addToCart('Chilli Paneer & Rice Bowl', 255)">Add <i
+                            class="fas fa-plus"></i></button>
+                </div>
             </div>
         </div>
 
@@ -475,7 +203,11 @@
                     <h3>Manchurian & Noodles</h3>
                     <p>Veg manchurian balls with noodles</p>
                 </div>
-                <div class="item-price">₹255</div>
+                <div class="item-price-container">
+                    <div class="item-price">₹255</div>
+                    <button class="add-btn" onclick="addToCart('Manchurian & Noodles Bowl', 255)">Add <i
+                            class="fas fa-plus"></i></button>
+                </div>
             </div>
         </div>
 
@@ -487,7 +219,11 @@
                     <h3>Manchurian & Fried Rice</h3>
                     <p>Veg manchurian balls with fried rice</p>
                 </div>
-                <div class="item-price">₹255</div>
+                <div class="item-price-container">
+                    <div class="item-price">₹255</div>
+                    <button class="add-btn" onclick="addToCart('Manchurian & Fried Rice Bowl', 255)">Add <i
+                            class="fas fa-plus"></i></button>
+                </div>
             </div>
         </div>
 
@@ -501,52 +237,86 @@
                     <h3>Mineral Water</h3>
                     <p>Chilled water bottle (500 ml)</p>
                 </div>
-                <div class="item-price">₹15</div>
+                <div class="item-price-container">
+                    <div class="item-price">₹15</div>
+                    <button class="add-btn" onclick="addToCart('Mineral Water (500ml)', 15)">Add <i
+                            class="fas fa-plus"></i></button>
+                </div>
             </div>
         </div>
 
     </div>
+
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-content">
+            <span class="close-form" onclick="closeCart()"><i class="fas fa-times"></i></span>
+            <h2 style="font-family:'Playfair Display', serif; color:var(--primary-dark); margin-bottom:20px;">Your Cart
+            </h2>
+            <div id="cartItemsContainer">
+            </div>
+            <div
+                style="display:flex; justify-content:space-between; margin-top:20px; font-weight:bold; font-size:18px;">
+                <span>Total:</span>
+                <span id="cartTotalAmount">₹0</span>
+            </div>
+            <button id="cartCheckoutBtn" class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <div id="userForm" class="user-form-modal">
+        <div class="form-box">
+            <span class="close-form" onclick="closeCheckout()"><i class="fas fa-times"></i></span>
+            <h3 style="font-family:'Playfair Display', serif; color:var(--primary-dark); margin-bottom:5px;">Complete
+                Order</h3>
+            <p style="color:#666; font-size:13px; margin-bottom:15px;">Please fill in your details and upload payment
+                screenshot.</p>
+
+            <div class="payment-input-group">
+                <input type="text" id="custName" placeholder="Full Name" required>
+                <div class="phone-input-wrapper">
+                    <span class="country-code">+91</span>
+                    <input type="tel" id="custPhone" placeholder="10-digit Mobile Number" maxlength="10"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);" required>
+                </div>
+                <input type="email" id="custEmail" placeholder="Email Address (Optional)">
+            </div>
+
+            <div class="qr-section">
+                <p>Scan to Pay: <strong id="finalAmountDisplay"
+                        style="color:var(--primary-dark); font-size:18px;">₹0</strong></p>
+                <img src="../logo/qr.jpg" alt="UPI QR" class="qr-img"
+                    onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg'">
+                <p style="font-size:12px; color:#666; margin-bottom:10px;">UPI ID: shudh-india@upi</p>
+
+                <input type="file" id="paymentImage" accept="image/*" hidden>
+                <button class="share-btn" onclick="selectScreenshot()"><i class="fas fa-camera"></i> Upload Payment
+                    Screenshot</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="successModal" class="success-modal">
+        <div class="success-box" style="text-align:center;">
+            <h2 style="color:#2ecc71; margin-bottom:10px;"><i class="fas fa-check-circle"></i> Order Placed!</h2>
+            <p style="color:#666;">Your tracking ID:</p>
+            <h3 id="successOrderId" style="margin:10px 0; background:#f4f4f4; padding:10px; border-radius:8px;"></h3>
+            <p style="font-size:14px; color:#666; margin-bottom:20px;">We’ve received your order.<br>Please wait for
+                your name to be called!</p>
+            <button class="share-btn" onclick="closeSuccess()">Continue Browsing</button>
+        </div>
+    </div>
+
+    <div id="uploadToast" class="upload-toast"></div>
 
     <footer class="fade-up">
         <p>100% Hygienic • Premium Ingredients • Made with ❤️</p>
         <p style="margin-top: 10px; font-weight: 600; color: var(--primary-dark);">Shudh India Catering Pvt. Ltd.</p>
     </footer>
 
-    <script>
-        // =========================================
-        // LOADER JAVASCRIPT
-        // =========================================
-        window.addEventListener('load', function () {
-            const loader = document.getElementById('pageLoader');
-            // Adding a slight 500ms delay so people can actually see your cool logo animation!
-            setTimeout(() => {
-                loader.classList.add('hidden');
-            }, 500);
-        });
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-        // =========================================
-        // FADE UP ANIMATION JAVASCRIPT
-        // =========================================
-        document.addEventListener('DOMContentLoaded', () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: "0px 0px -20px 0px"
-            });
-
-            const fadeElements = document.querySelectorAll('.fade-up');
-            fadeElements.forEach((el) => {
-                observer.observe(el);
-            });
-        });
-    </script>
-
+   
 </body>
 
 </html>
