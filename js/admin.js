@@ -19,30 +19,37 @@ let ordersListener = null;
 
 
 // ---------------- LOGIN LOGIC ----------------
-function login() {
+let currentUserRole = "admin"; // Global variable to store role
 
+function login() {
     auth.signInWithEmailAndPassword(email.value, password.value)
         .then(res => {
-
             const userEmail = res.user.email;
 
-            db.collection("admins")
-                .where("email", "==", userEmail)
-                .get()
+            db.collection("admins").where("email", "==", userEmail).get()
                 .then(snapshot => {
-
                     if (snapshot.empty) {
                         alert("Not authorized");
                         auth.signOut();
                         return;
                     }
 
+                    // Get role from database
+                    const adminData = snapshot.docs[0].data();
+                    currentUserRole = adminData.role || "admin";
+
+                    // If Super Admin, show the extra tab!
+                    if (currentUserRole === "super_admin") {
+                        document.getElementById("tab-admins").classList.remove("hidden");
+                    }
+
                     loginCard.classList.add("hidden");
                     dashboard.classList.remove("hidden");
+
+                    document.getElementById("adminEmailDisplay").innerText = userEmail + ` (${currentUserRole})`;
+
                     loadOrders();
-
                 });
-
         })
         .catch(e => alert(e.message));
 }
@@ -169,3 +176,120 @@ function deleteOrder(id) {
     db.collection("orders").doc(id).delete();
 }
 
+
+// ---------------- TAB NAVIGATION ----------------
+function switchTab(tabName) {
+    // Hide both sections
+    document.getElementById("section-orders").classList.add("hidden");
+    document.getElementById("section-admins").classList.add("hidden");
+
+    // Remove active styling from buttons
+    document.getElementById("tab-orders").classList.remove("active");
+    document.getElementById("tab-admins").classList.remove("active");
+
+    // Show selected section
+    if (tabName === 'orders') {
+        document.getElementById("section-orders").classList.remove("hidden");
+        document.getElementById("tab-orders").classList.add("active");
+    } else {
+        document.getElementById("section-admins").classList.remove("hidden");
+        document.getElementById("tab-admins").classList.add("active");
+        loadAdminsList(); // Load admins when tab is clicked
+    }
+}
+
+// ---------------- ADMIN MANAGEMENT (SUPER ADMIN ONLY) ----------------
+function loadAdminsList() {
+    const list = document.getElementById("adminsList");
+    list.innerHTML = "<p>Loading admins...</p>";
+
+    db.collection("admins").get().then(snap => {
+        list.innerHTML = "";
+        snap.forEach(doc => {
+            const data = doc.data();
+            const id = doc.id;
+            const isSuper = data.role === "super_admin";
+
+            list.innerHTML += `
+                <div class="order-card" style="padding: 20px; display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <div class="customer-name">${data.email}</div>
+                        <span class="status-badge ${isSuper ? 'pending' : 'done'}">
+                            ${isSuper ? 'SUPER ADMIN' : 'NORMAL ADMIN'}
+                        </span>
+                    </div>
+                    <button onclick="removeAdmin('${id}')" class="secondary" style="width:auto; padding:8px 15px;">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
+                </div>
+            `;
+        });
+    });
+}
+
+async function addNewAdmin() {
+    const emailInput = document.getElementById("newAdminEmail").value.trim().toLowerCase();
+    const passwordInput = document.getElementById("newAdminPassword").value.trim();
+    const roleInput = document.getElementById("newAdminRole").value;
+
+    // 1. Validation
+    if (!emailInput || passwordInput.length < 6) {
+        alert("Please enter a valid email and a password of at least 6 characters.");
+        return;
+    }
+    try {
+        const btn = event.target;
+        const originalText = btn.innerText;
+        btn.innerText = "Processing...";
+        btn.disabled = true;
+
+        const secondaryApp = firebase.initializeApp(firebaseConfig, "Secondary");
+
+        try {
+            // 3. Try to create the actual user login
+            await secondaryApp.auth().createUserWithEmailAndPassword(emailInput, passwordInput);
+
+        } catch (authError) {
+            // THE SMART FIX: Catch the specific "already in use" error
+            if (authError.code === 'auth/email-already-in-use') {
+                alert(`Note: An account for ${emailInput} already exists! Restoring their admin permissions using their old password.`);
+            } else {
+                // If it's a different error (like a bad email format), throw it to the main catch block
+                throw authError;
+            }
+        }
+
+        await secondaryApp.auth().signOut();
+        await secondaryApp.delete();
+
+        // 4. Save/Update their role to the Firestore database
+        await db.collection("admins").doc(emailInput).set({
+            email: emailInput,
+            role: roleInput
+        });
+
+        // Success!
+        alert(`Successfully updated permissions for ${emailInput} as ${roleInput}!`);
+
+        document.getElementById("newAdminEmail").value = "";
+        document.getElementById("newAdminPassword").value = "";
+        loadAdminsList();
+
+        btn.innerText = originalText;
+        btn.disabled = false;
+
+    } catch (error) {
+        console.error(error);
+        alert("Error: " + error.message);
+        event.target.innerText = "Create Account";
+        event.target.disabled = false;
+    }
+}
+
+function removeAdmin(id) {
+    if (!confirm("Are you sure you want to remove this admin's access?")) return;
+
+    db.collection("admins").doc(id).delete()
+        .then(() => loadAdminsList())
+        .catch(e => alert(e.message));
+}
