@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BBAU Exclusive Menu | Shudh India</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <link rel="icon" type="image/png" href="../favicon.png">
 
     <style>
@@ -17,7 +20,7 @@
             --bg-color: #f8f5f0;
             --text-dark: #2c2c2c;
             --text-light: #777;
-            --shadow: 0 10px 25px rgba(0,0,0,0.05);
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
         }
 
         * {
@@ -30,8 +33,104 @@
             font-family: 'Outfit', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-dark);
-            padding-top: 70px; /* Space for fixed header */
+            padding-top: 70px;
+            overflow-x: hidden;
         }
+
+        /* page loading */
+        /* --- CUSTOM PAGE LOADER --- */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #2A0A0A;
+            /* Brand Dark Maroon */
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Class to hide the loader */
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            /* Allows clicking through after it fades */
+        }
+
+        /* Container for the logo and ring */
+        .loader-content {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* The Spinning Gold Ring */
+        .spinner-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid transparent;
+            border-top-color: #C5A059;
+            /* Brand Gold */
+            border-right-color: #C5A059;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* The Logo inside */
+        .loader-logo {
+            width: 70px;
+            /* Slightly smaller than ring */
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .loader-text {
+            margin-top: 20px;
+            color: #C5A059;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+                transform: scale(0.95);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
 
         /* --- Header --- */
         header {
@@ -46,7 +145,7 @@
             width: 100%;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         header .brand {
@@ -59,8 +158,8 @@
 
         /* --- Main Banner with Image Background --- */
         .university-banner {
-            background: linear-gradient(rgba(42, 10, 10, 0.85), rgba(42, 10, 10, 0.95)), 
-                        url('https://images.unsplash.com/photo-1589302168068-964664d93dc0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover;
+            background: linear-gradient(rgba(42, 10, 10, 0.85), rgba(42, 10, 10, 0.95)),
+                url('https://images.unsplash.com/photo-1589302168068-964664d93dc0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover;
             color: white;
             text-align: center;
             padding: 50px 20px;
@@ -69,6 +168,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
         }
 
         .university-banner h1 {
@@ -76,7 +176,7 @@
             font-size: 34px;
             margin-bottom: 12px;
             color: var(--gold);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .university-banner p {
@@ -91,8 +191,8 @@
 
         /* --- Menu Container --- */
         .menu-container {
-            max-width: 650px; 
-            margin: -20px auto 0; /* Pulls it slightly over the banner */
+            max-width: 650px;
+            margin: -20px auto 0;
             padding: 0 20px 40px;
             position: relative;
             z-index: 10;
@@ -129,7 +229,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            transition: transform 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: 1px solid rgba(197, 160, 89, 0.2);
         }
 
@@ -142,7 +242,7 @@
             height: 85px;
             border-radius: 12px;
             object-fit: cover;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .item-content {
@@ -204,32 +304,54 @@
                 width: 75px;
                 height: 75px;
             }
+
             .item-price {
                 padding: 8px 12px;
                 font-size: 16px;
             }
         }
+
+        /* FADE UP ANIMATION CSS */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
+
 <body>
+
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-content">
+            <div class="spinner-ring"></div>
+            <img src="../logo/shudh_india_logo.png" alt="Shudh India" class="loader-logo">
+        </div>
+        <div class="loader-text">Loading Excellence...</div>
+    </div>
 
     <header>
         <div class="brand"><i class="fas fa-utensils" style="margin-right:10px;"></i>Shudh India</div>
     </header>
 
     <div class="university-banner">
-        <h1>BBAU Exclusive Menu</h1>
-        <p><i class="fas fa-qrcode" style="margin-right:5px;"></i> Special pricing active for students</p>
+        <h1 class="fade-up">BBAU Exclusive Menu</h1>
+        <p class="fade-up" style="transition-delay: 0.1s;"><i class="fas fa-qrcode" style="margin-right:5px;"></i>
+            Special pricing active for students</p>
     </div>
 
     <div class="menu-container">
 
-        <h2 class="category-title"><i class="fas fa-hamburger"></i> Quick Bites</h2>
-        
-    
+        <h2 class="category-title fade-up"><i class="fas fa-hamburger"></i> Quick Bites</h2>
 
-        <div class="menu-item">
-            <img src="https://img-cdn.publive.online/fit-in/1280x960/filters:format(webp)/connect-gujarat-english/media/post_banners/9d03e70a4266c8ca52a2d07573e916befb97a3fa387388621a80451168457030.webp" alt="Momos" class="item-img">
+        <div class="menu-item fade-up">
+            <img src="https://img-cdn.publive.online/fit-in/1280x960/filters:format(webp)/connect-gujarat-english/media/post_banners/9d03e70a4266c8ca52a2d07573e916befb97a3fa387388621a80451168457030.webp"
+                alt="Momos" class="item-img">
             <div class="item-content">
                 <div class="item-details">
                     <h3>Momos</h3>
@@ -239,8 +361,9 @@
             </div>
         </div>
 
-        <div class="menu-item">
-            <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?auto=format&fit=crop&w=200&q=80" alt="Pav Bhaji" class="item-img">
+        <div class="menu-item fade-up">
+            <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?auto=format&fit=crop&w=200&q=80"
+                alt="Pav Bhaji" class="item-img">
             <div class="item-content">
                 <div class="item-details">
                     <h3>Pav Bhaji</h3>
@@ -251,8 +374,9 @@
             </div>
         </div>
 
-        <div class="menu-item">
-            <img src="https://tse4.mm.bing.net/th/id/OIP.lf6chq1RDevswl43k6umywHaFj?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Fries" class="item-img">
+        <div class="menu-item fade-up">
+            <img src="https://tse4.mm.bing.net/th/id/OIP.lf6chq1RDevswl43k6umywHaFj?rs=1&pid=ImgDetMain&o=7&rm=3"
+                alt="Fries" class="item-img">
             <div class="item-content">
                 <div class="item-details">
                     <h3>Crispy Fries</h3>
@@ -262,10 +386,11 @@
             </div>
         </div>
 
-        <h2 class="category-title"><i class="fas fa-pizza-slice"></i> Noodles & Pasta</h2>
+        <h2 class="category-title fade-up"><i class="fas fa-pizza-slice"></i> Noodles & Pasta</h2>
 
-        <div class="menu-item">
-            <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=200&q=80" alt="Red Sauce Pasta" class="item-img">
+        <div class="menu-item fade-up">
+            <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=200&q=80"
+                alt="Red Sauce Pasta" class="item-img">
             <div class="item-content">
                 <div class="item-details">
                     <h3>Red Sauce Pasta</h3>
@@ -275,8 +400,9 @@
             </div>
         </div>
 
-        <div class="menu-item">
-            <img src="https://images.unsplash.com/photo-1645112411341-6c4fd023714a?auto=format&fit=crop&w=200&q=80" alt="White Sauce Pasta" class="item-img">
+        <div class="menu-item fade-up">
+            <img src="https://images.unsplash.com/photo-1645112411341-6c4fd023714a?auto=format&fit=crop&w=200&q=80"
+                alt="White Sauce Pasta" class="item-img">
             <div class="item-content">
                 <div class="item-details">
                     <h3>White Sauce Pasta</h3>
@@ -286,8 +412,9 @@
             </div>
         </div>
 
-        <div class="menu-item">
-            <img src="https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?auto=format&fit=crop&w=200&q=80" alt="Noodles" class="item-img">
+        <div class="menu-item fade-up">
+            <img src="https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?auto=format&fit=crop&w=200&q=80"
+                alt="Noodles" class="item-img">
             <div class="item-content">
                 <div class="item-details">
                     <h3>Chilli Garlic Noodles</h3>
@@ -297,8 +424,9 @@
             </div>
         </div>
 
-        <div class="menu-item">
-            <img src="https://tse1.mm.bing.net/th/id/OIP.w3bdOk5I9_T1kAKtzQS62AHaGg?cb=defcache2&defcache=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Maggie" class="item-img">
+        <div class="menu-item fade-up">
+            <img src="https://tse1.mm.bing.net/th/id/OIP.w3bdOk5I9_T1kAKtzQS62AHaGg?cb=defcache2&defcache=1&rs=1&pid=ImgDetMain&o=7&rm=3"
+                alt="Maggie" class="item-img">
             <div class="item-content">
                 <div class="item-details">
                     <h3>Classic Maggie</h3>
@@ -308,10 +436,11 @@
             </div>
         </div>
 
-        <h2 class="category-title"><i class="fas fa-bowl-food"></i> Premium Bowls</h2>
+        <h2 class="category-title fade-up"><i class="fas fa-bowl-food"></i> Premium Bowls</h2>
 
-        <div class="menu-item">
-            <img src="https://png.pngtree.com/thumb_back/fh260/background/20240515/pngtree-manchurian-hakka-or-schezwan-noodles-popular-indochinese-food-served-in-a-image_15763599.jpg" alt="Bowl" class="item-img">
+        <div class="menu-item fade-up">
+            <img src="https://png.pngtree.com/thumb_back/fh260/background/20240515/pngtree-manchurian-hakka-or-schezwan-noodles-popular-indochinese-food-served-in-a-image_15763599.jpg"
+                alt="Bowl" class="item-img">
             <div class="item-content">
                 <div class="item-details">
                     <h3>Chilli Paneer Noodles Bowl</h3>
@@ -321,8 +450,9 @@
             </div>
         </div>
 
-        <div class="menu-item">
-            <img src="https://someindiangirl.com/wp-content/uploads/2021/12/Chilli-Paneer-Fried-Rice-9-of-19-1024x683.jpg" alt="Bowl" class="item-img">
+        <div class="menu-item fade-up">
+            <img src="https://someindiangirl.com/wp-content/uploads/2021/12/Chilli-Paneer-Fried-Rice-9-of-19-1024x683.jpg"
+                alt="Bowl" class="item-img">
             <div class="item-content">
                 <div class="item-details">
                     <h3>Chilli Paneer & Rice</h3>
@@ -332,8 +462,9 @@
             </div>
         </div>
 
-        <div class="menu-item">
-            <img src="https://png.pngtree.com/thumb_back/fh260/background/20240515/pngtree-manchurian-hakka-or-schezwan-noodles-popular-indochinese-food-served-in-a-image_15763599.jpg" alt="Bowl" class="item-img">
+        <div class="menu-item fade-up">
+            <img src="https://png.pngtree.com/thumb_back/fh260/background/20240515/pngtree-manchurian-hakka-or-schezwan-noodles-popular-indochinese-food-served-in-a-image_15763599.jpg"
+                alt="Bowl" class="item-img">
             <div class="item-content">
                 <div class="item-details">
                     <h3>Manchurian & Noodles</h3>
@@ -343,8 +474,9 @@
             </div>
         </div>
 
-        <div class="menu-item">
-            <img src="https://th.bing.com/th/id/OIP.US0jBTtZynUq5q-r3uCOsQHaHa?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Bowl" class="item-img">
+        <div class="menu-item fade-up">
+            <img src="https://th.bing.com/th/id/OIP.US0jBTtZynUq5q-r3uCOsQHaHa?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3"
+                alt="Bowl" class="item-img">
             <div class="item-content">
                 <div class="item-details">
                     <h3>Manchurian & Fried Rice</h3>
@@ -354,10 +486,11 @@
             </div>
         </div>
 
-        <h2 class="category-title"><i class="fas fa-bottle-water"></i> Beverages</h2>
+        <h2 class="category-title fade-up"><i class="fas fa-bottle-water"></i> Beverages</h2>
 
-        <div class="menu-item">
-            <img src="https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=200&q=80" alt="Water" class="item-img">
+        <div class="menu-item fade-up">
+            <img src="https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=200&q=80"
+                alt="Water" class="item-img">
             <div class="item-content">
                 <div class="item-details">
                     <h3>Mineral Water</h3>
@@ -369,10 +502,46 @@
 
     </div>
 
-    <footer>
+    <footer class="fade-up">
         <p>100% Hygienic • Premium Ingredients • Made with ❤️</p>
         <p style="margin-top: 10px; font-weight: 600; color: var(--primary-dark);">Shudh India Catering Pvt. Ltd.</p>
     </footer>
 
+    <script>
+        // =========================================
+        // LOADER JAVASCRIPT
+        // =========================================
+        window.addEventListener('load', function () {
+            const loader = document.getElementById('pageLoader');
+            // Adding a slight 500ms delay so people can actually see your cool logo animation!
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 500);
+        });
+
+        // =========================================
+        // FADE UP ANIMATION JAVASCRIPT
+        // =========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: "0px 0px -20px 0px"
+            });
+
+            const fadeElements = document.querySelectorAll('.fade-up');
+            fadeElements.forEach((el) => {
+                observer.observe(el);
+            });
+        });
+    </script>
+
 </body>
+
 </html>
