@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBAU Exclusive Menu | Shudh India</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="icon" type="image/png" href="../favicon.png">
+
+    <style>
+        :root {
+            --primary-dark: #2A0A0A;
+            --gold: #C5A059;
+            --bg-color: #f8f5f0;
+            --text-dark: #2c2c2c;
+            --text-light: #777;
+            --shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            padding-top: 70px; /* Space for fixed header */
+        }
+
+        /* --- Header --- */
+        header {
+            background: var(--primary-dark);
+            color: white;
+            padding: 0 20px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        header .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: var(--gold);
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        /* --- Main Banner with Image Background --- */
+        .university-banner {
+            background: linear-gradient(rgba(42, 10, 10, 0.85), rgba(42, 10, 10, 0.95)), 
+                        url('https://images.unsplash.com/photo-1589302168068-964664d93dc0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            border-bottom: 5px solid var(--gold);
+            height: 40vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .university-banner h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            margin-bottom: 12px;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .university-banner p {
+            font-size: 16px;
+            opacity: 0.95;
+            background: rgba(255, 255, 255, 0.1);
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* --- Menu Container --- */
+        .menu-container {
+            max-width: 650px; 
+            margin: -20px auto 0; /* Pulls it slightly over the banner */
+            padding: 0 20px 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .category-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: var(--primary-dark);
+            margin: 35px 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .category-title i {
+            color: var(--gold);
+        }
+
+        .category-title::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(to right, #e0d5c1, transparent);
+        }
+
+        /* --- Menu Items with Images --- */
+        .menu-item {
+            background: white;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 18px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.2s ease;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+        }
+
+        .menu-item:active {
+            transform: scale(0.98);
+        }
+
+        .item-img {
+            width: 85px;
+            height: 85px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .item-content {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .item-details h3 {
+            font-size: 18px;
+            color: var(--primary-dark);
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .item-details p {
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.4;
+        }
+
+        .item-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            background: #fdf9f1;
+            padding: 10px 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            white-space: nowrap;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #fff3cd;
+            color: #856404;
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+            font-size: 14px;
+            background: white;
+            border-top: 1px solid #eee;
+        }
+
+        /* Mobile tweaks */
+        @media (max-width: 480px) {
+            .item-img {
+                width: 75px;
+                height: 75px;
+            }
+            .item-price {
+                padding: 8px 12px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand"><i class="fas fa-utensils" style="margin-right:10px;"></i>Shudh India</div>
+    </header>
+
+    <div class="university-banner">
+        <h1>BBAU Exclusive Menu</h1>
+        <p><i class="fas fa-qrcode" style="margin-right:5px;"></i> Special pricing active for students</p>
+    </div>
+
+    <div class="menu-container">
+
+        <h2 class="category-title"><i class="fas fa-hamburger"></i> Quick Bites</h2>
+        
+    
+
+        <div class="menu-item">
+            <img src="https://img-cdn.publive.online/fit-in/1280x960/filters:format(webp)/connect-gujarat-english/media/post_banners/9d03e70a4266c8ca52a2d07573e916befb97a3fa387388621a80451168457030.webp" alt="Momos" class="item-img">
+            <div class="item-content">
+                <div class="item-details">
+                    <h3>Momos</h3>
+                    <p>Hot steamed veg momos (8 pcs)</p>
+                </div>
+                <div class="item-price">₹80</div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?auto=format&fit=crop&w=200&q=80" alt="Pav Bhaji" class="item-img">
+            <div class="item-content">
+                <div class="item-details">
+                    <h3>Pav Bhaji</h3>
+                    <p>Classic buttery street food</p>
+                    <span class="badge">+ ₹20 for Cheese</span>
+                </div>
+                <div class="item-price">₹120</div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="https://tse4.mm.bing.net/th/id/OIP.lf6chq1RDevswl43k6umywHaFj?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Fries" class="item-img">
+            <div class="item-content">
+                <div class="item-details">
+                    <h3>Crispy Fries</h3>
+                    <p>Golden salted french fries</p>
+                </div>
+                <div class="item-price">₹60</div>
+            </div>
+        </div>
+
+        <h2 class="category-title"><i class="fas fa-pizza-slice"></i> Noodles & Pasta</h2>
+
+        <div class="menu-item">
+            <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=200&q=80" alt="Red Sauce Pasta" class="item-img">
+            <div class="item-content">
+                <div class="item-details">
+                    <h3>Red Sauce Pasta</h3>
+                    <p>Tangy tomato & herb sauce</p>
+                </div>
+                <div class="item-price">₹80</div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="https://images.unsplash.com/photo-1645112411341-6c4fd023714a?auto=format&fit=crop&w=200&q=80" alt="White Sauce Pasta" class="item-img">
+            <div class="item-content">
+                <div class="item-details">
+                    <h3>White Sauce Pasta</h3>
+                    <p>Creamy cheese sauce with veggies</p>
+                </div>
+                <div class="item-price">₹80</div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?auto=format&fit=crop&w=200&q=80" alt="Noodles" class="item-img">
+            <div class="item-content">
+                <div class="item-details">
+                    <h3>Chilli Garlic Noodles</h3>
+                    <p>Spicy wok-tossed noodles</p>
+                </div>
+                <div class="item-price">₹80</div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="https://tse1.mm.bing.net/th/id/OIP.w3bdOk5I9_T1kAKtzQS62AHaGg?cb=defcache2&defcache=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Maggie" class="item-img">
+            <div class="item-content">
+                <div class="item-details">
+                    <h3>Classic Maggie</h3>
+                    <p>Everyone's favorite comfort food</p>
+                </div>
+                <div class="item-price">₹60</div>
+            </div>
+        </div>
+
+        <h2 class="category-title"><i class="fas fa-bowl-food"></i> Premium Bowls</h2>
+
+        <div class="menu-item">
+            <img src="https://png.pngtree.com/thumb_back/fh260/background/20240515/pngtree-manchurian-hakka-or-schezwan-noodles-popular-indochinese-food-served-in-a-image_15763599.jpg" alt="Bowl" class="item-img">
+            <div class="item-content">
+                <div class="item-details">
+                    <h3>Chilli Paneer Noodles Bowl</h3>
+                    <p>Spicy paneer chunks with veg noodles</p>
+                </div>
+                <div class="item-price">₹255</div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="https://someindiangirl.com/wp-content/uploads/2021/12/Chilli-Paneer-Fried-Rice-9-of-19-1024x683.jpg" alt="Bowl" class="item-img">
+            <div class="item-content">
+                <div class="item-details">
+                    <h3>Chilli Paneer & Rice</h3>
+                    <p>Spicy paneer chunks with fried rice</p>
+                </div>
+                <div class="item-price">₹255</div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="https://png.pngtree.com/thumb_back/fh260/background/20240515/pngtree-manchurian-hakka-or-schezwan-noodles-popular-indochinese-food-served-in-a-image_15763599.jpg" alt="Bowl" class="item-img">
+            <div class="item-content">
+                <div class="item-details">
+                    <h3>Manchurian & Noodles</h3>
+                    <p>Veg manchurian balls with noodles</p>
+                </div>
+                <div class="item-price">₹255</div>
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <img src="https://th.bing.com/th/id/OIP.US0jBTtZynUq5q-r3uCOsQHaHa?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Bowl" class="item-img">
+            <div class="item-content">
+                <div class="item-details">
+                    <h3>Manchurian & Fried Rice</h3>
+                    <p>Veg manchurian balls with fried rice</p>
+                </div>
+                <div class="item-price">₹255</div>
+            </div>
+        </div>
+
+        <h2 class="category-title"><i class="fas fa-bottle-water"></i> Beverages</h2>
+
+        <div class="menu-item">
+            <img src="https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=200&q=80" alt="Water" class="item-img">
+            <div class="item-content">
+                <div class="item-details">
+                    <h3>Mineral Water</h3>
+                    <p>Chilled water bottle (500 ml)</p>
+                </div>
+                <div class="item-price">₹15</div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>100% Hygienic • Premium Ingredients • Made with ❤️</p>
+        <p style="margin-top: 10px; font-weight: 600; color: var(--primary-dark);">Shudh India Catering Pvt. Ltd.</p>
+    </footer>
+
+</body>
+</html>
