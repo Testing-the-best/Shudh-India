@@ -103,7 +103,9 @@ function loadOrders() {
                 const o = doc.data();
                 const id = doc.id;
                 const isDone = o.status === 'done';
-                const itemsList = o.items ? o.items.map(i => `• ${i.name}`).join("<br>") : "No items listed";
+                const itemsList = o.items
+                    ? o.items.map(i => `• ${i.name} x ${i.quantity ?? i.qty ?? 1}`).join("<br>")
+                    : "No items listed";
 
                 ordersDiv.innerHTML += `
                         <div class="order-card ${isDone ? 'done' : 'pending'}">

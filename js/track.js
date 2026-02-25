@@ -54,7 +54,7 @@ function fetchOrders() {
                 const status = order.status || "Pending";
                 const total = order.total || "Price N/A";
                 const eventType = order.eventType || "General Event";
-                
+
                 // Date Check
                 let dateStr = "Date Pending";
                 if (order.createdAt) {
@@ -69,8 +69,8 @@ function fetchOrders() {
                 // Items Check
                 let itemsHtml = "";
                 if (order.items && order.items.length > 0) {
-                    itemsHtml = order.items.map(item => 
-                        `<div>• ${item.name || 'Item'} <span style="color:#777">x ${item.qty || 1}</span></div>`
+                    itemsHtml = order.items.map(item =>
+                        `<div>• ${item.name || 'Item'} <span style="color:#777">x ${item.quantity || 1}</span></div>`
                     ).join('');
                 } else {
                     itemsHtml = "<div>• Custom Order (Items not listed)</div>";
